@@ -1,8 +1,10 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/U2l29CBO)
 
-# Título do projeto
+# Materialize
 
-Um parágrafo da descrição do projeto vai aqui
+O objetivo principal desse projeto é economizar tempo e tornar mais conveniente o processo de compra de materiais escolares, aliviando os pais e responsáveis do estresse de visitar várias lojas físicas para fazer suas compras. Além disso, a plataforma pode fornecer informações adicionais, como descrições dos produtos, avaliações de outros usuários e até mesmo oferecer opções de pagamento online para maior comodidade.
+
+Em resumo, o projeto busca simplificar e modernizar o processo de compra de materiais, oferecendo uma solução digital que atenda às necessidades dos pais e responsáveis.
 
 ### 📋 Pré-requisitos
 
