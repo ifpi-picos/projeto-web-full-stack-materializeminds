@@ -42,8 +42,8 @@ model Product {
   categoria   String
   supplierId  String
   supplier    Supplier @relation(fields: [supplierId], references: [id])
-  carts       Cart[]   @relation("CartProduct")
   orderItems  OrderItem[]
+  carts       Cart[]   @relation("CartProduct")
 }
 
 model Order {
@@ -73,6 +73,7 @@ model Cart {
   status    String
   total     Float
   userId    String
+  productId String
   user      User     @relation(fields: [userId], references: [id])
   products  Product[] @relation("CartProduct")
 }

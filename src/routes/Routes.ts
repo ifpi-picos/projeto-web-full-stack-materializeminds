@@ -9,15 +9,20 @@ const router = express.Router();
 
 // Rotas para criar usuários, fornecedores e produtos
 router.post('/users', UserController.createUser);
-router.get('/user',UserController.list)
 
 router.post('/suppliers', SupplierController.createSupplier);
+
 router.post('/products', ProductController.createProduct);
 
-router.post('/add',ProductController.addProductToSupplier);
-router.get('/listSupllier',SupplierController.list)
+router.post('/supplier/product/add',ProductController.addProductToSupplier);
 
 router.post('/cart',CartController.createCart)
+
+// Rotas de teste
+
+router.get('/listSupllier',SupplierController.list)
+router.get('/user',UserController.list)
 router.get('/cart',CartController.listCart)
+
 
 export default router;
