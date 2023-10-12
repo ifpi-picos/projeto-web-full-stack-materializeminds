@@ -1,22 +1,25 @@
 import { Request, Response } from "express";
 
-import CartServices from "../services/cartServices/CartServices";
+import createCartServices from "../services/cartServices/CreateCartServices";
 
 class CartController{
 
 	async createCart(req:Request, res:Response){
 
 		try{
-			const { status,total,userId } = req.body
+			const { status,total,userId,productId } = req.body
 
-			const total1 = Number(total)
+			const totalNumber = Number(total)
 
 
-			const cart = await CartServices.createCartProduct(status,total1,userId)
+			const cart = await createCartServices.createCartProduct({
+				status,
+				total:totalNumber,
+				userId,
+				productId
+			})
 
-			await CartServices.addCartUser(cart.id,userId)
-			res.status(201).json(cart)
-
+		res.status(201).json(cart)				
 
 		}catch(error){
 			console.log(error)
@@ -26,7 +29,7 @@ class CartController{
 	}
 
 	async listCart(req:Request,res:Response){
-		const products = await CartServices.list()
+		const products = await createCartServices.list()
 		res.json(products)
 	}
 

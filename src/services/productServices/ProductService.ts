@@ -1,8 +1,21 @@
 import { prisma } from "../../lib/prisma";
 
+interface IRequest{
+  nomeDoProduto: string,
+  descricao: string,
+  preco: number,
+  estoque: number,
+  categoria: string,
+  supplierId: string  
+}
+
+
 class ProductService {
-  async createProduct(nomeDoProduto: string, descricao: string, preco: number, estoque: number, categoria: string, supplierId: string) {
-    return prisma.product.create({
+  async createProduct({nomeDoProduto, descricao, preco, estoque, categoria, supplierId}:IRequest) {
+    
+    // Verificar se existe o produto
+    
+    const newProduct = prisma.product.create({
       data: {
         nomeDoProduto,  
         descricao,
@@ -12,25 +25,23 @@ class ProductService {
         supplierId,
       },
     });
-  }
-
-  async addProductToSupplier(productId: string, supplierId: string) {
-    return prisma.supplier.update({
+  
+    await prisma.supplier.update({
       where: { id: supplierId },
       data: {
         products: {
-          connect: { id: productId },
+          connect: { id: (await newProduct).id },
         },
       },
     });
+    
+    return newProduct
   }
-
-	async list(){
-		const product = await prisma.product.findMany()
-		return product
-	}
-
-
+	
+  async list(){
+    const product = await prisma.product.findMany()
+    return product
+  }
 }
 
 export default new ProductService();

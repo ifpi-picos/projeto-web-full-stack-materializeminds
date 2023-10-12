@@ -30,7 +30,111 @@
         }
       }
     },
-
+    "paths": {
+      "/login": {
+        "post": {
+          "summary": "Rota de Login",
+          "description": "Efetua login e gera tokens de autenticação.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login bem-sucedido",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "accessToken": {
+                        "type": "string"
+                      },
+                      "refreshToken": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Falha na autenticação"
+            }
+          }
+        }
+      }
+    },
+    "/refresh-token": {
+      "post": {
+        "summary": "Rota de Renovação de Token",
+        "description": "Gera novos tokens com base no ID do usuário.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tokens renovados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string"
+                    },
+                    "refreshToken": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "expiration": {
+                          "type": "number",
+                          "description": "Tempo de expiração do refresh token em segundos"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Falha na renovação de token"
+          }
+        }
+      }
+    },
     "/suppliers": {
       "post": {
         "summary": "Cria um novo fornecedor.",

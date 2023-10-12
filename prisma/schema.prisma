@@ -13,15 +13,28 @@ datasource db {
 // schema.prisma
 
 model User {
+  id            String   @id @default(uuid())
+  nome          String
+  sobrenome     String
+  endereco      String
+  email         String   @unique
+  senha         String
+  telefone      String
+  cart          Cart? 
+  orders        Order[]
+  
+  refresh_token RefreshToken?
+
+  @@map("users")
+}
+
+model RefreshToken{
   id        String   @id @default(uuid())
-  nome      String
-  sobrenome String
-  endereco  String
-  email     String   @unique
-  senha     String
-  telefone  String
-  carts     Cart[]
-  orders    Order[]
+  expiresIn Int
+  user      User     @relation(fields: [userId],references: [id])
+  userId    String   @unique
+
+  @@map("refresh_token")
 }
 
 model Supplier {
@@ -34,46 +47,46 @@ model Supplier {
 }
 
 model Product {
-  id          String      @id @default(uuid())
+  id            String       @id @default(uuid())
   nomeDoProduto String
-  descricao    String?
-  preco       Float
-  estoque     Int
-  categoria   String
-  supplierId  String
-  supplier    Supplier @relation(fields: [supplierId], references: [id])
-  orderItems  OrderItem[]
-  carts       Cart[]   @relation("CartProduct")
+  descricao     String?
+  preco         Float
+  estoque       Int
+  categoria     String
+  supplierId    String
+  supplier      Supplier     @relation(fields: [supplierId], references: [id])
+  orderItems    OrderItem[]
+  carts         Cart[]       @relation("CartProduct")
 }
 
 model Order {
-  id               String      @id @default(uuid())
-  dataDoPedido     DateTime
-  status           String
-  total            Float
+  id                String        @id @default(uuid())
+  dataDoPedido      DateTime
+  status            String
+  total             Float
   enderecoDeEntrega String
-  userId           String
-  user             User     @relation(fields: [userId], references: [id])
-  orderItems       OrderItem[]
+  userId            String
+  user              User         @relation(fields: [userId], references: [id])
+  orderItems        OrderItem[]
 }
 
 model OrderItem {
-  id        String    @id @default(uuid())
-  quantidade Int
+  id            String   @id @default(uuid())
+  quantidade    Int
   precoUnitario Float
-  total     Float
-  orderId   String
-  productId String
-  order     Order  @relation(fields: [orderId], references: [id])
-  product   Product @relation(fields: [productId], references: [id])
+  total         Float
+  orderId       String
+  productId     String
+  order         Order   @relation(fields: [orderId], references: [id])
+  product       Product @relation(fields: [productId], references: [id])
 }
 
 model Cart {
   id        String      @id @default(uuid())
   status    String
   total     Float
-  userId    String
+  userId    String      @unique
   productId String
-  user      User     @relation(fields: [userId], references: [id])
-  products  Product[] @relation("CartProduct")
+  user      User        @relation(fields: [userId], references: [id])
+  products  Product[]   @relation("CartProduct")
 }

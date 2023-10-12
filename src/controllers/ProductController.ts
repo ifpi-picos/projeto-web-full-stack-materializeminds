@@ -6,25 +6,23 @@ class ProductController {
     try {
       const { nomeDoProduto, descricao, preco, estoque, categoria, supplierId } = req.body;
       
-			const preco1 = Number(preco);
-			const estoque1 = Number(estoque);
+			const precoNumber = Number(preco);
+			const estoqueNumber=  Number(estoque);
 			
-			const product = await ProductService.createProduct(nomeDoProduto, descricao, preco1, estoque1, categoria, supplierId);
-      
-			await ProductService.addProductToSupplier(product.id, supplierId);
+      console.log(typeof preco)
+			const product = await ProductService.createProduct({
+        nomeDoProduto,
+        descricao,
+        preco:precoNumber,
+        estoque:estoqueNumber,
+        categoria,
+        supplierId});
+
       res.status(201).json(product);
+
     } catch (error) {
-			console.log(error)
+      console.log(error)
       res.status(500).json({ error: 'Erro ao criar o produto' });
-    }
-  }
-	async addProductToSupplier(req: Request, res: Response) {
-    try {
-      const { supplierId, productId } = req.body;
-      await ProductService.addProductToSupplier(productId, supplierId);
-      res.status(200).json({ message: 'Produto adicionado ao fornecedor com sucesso' });
-    } catch (error) {
-      res.status(500).json({ error: 'Erro ao adicionar o produto ao fornecedor' });
     }
   }
 
