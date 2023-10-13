@@ -1,7 +1,7 @@
 import express,{Request,Response,NextFunction} from 'express'
 import 'express-async-errors'
 import swaggerUi from 'swagger-ui-express'
-
+import morgan from 'morgan'
 
 import router from './routes/Routes'
 import swaggerDocs from './swagger.json'
@@ -9,8 +9,9 @@ import swaggerDocs from './swagger.json'
 const app = express()
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+app.use(morgan('dev'))
 app.use('/docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))
-
 
 app.use(router)
 

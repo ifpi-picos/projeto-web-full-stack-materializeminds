@@ -37,11 +37,6 @@ class ProductService {
     
     return newProduct
   }
-	
-  async list(){
-    const product = await prisma.product.findMany()
-    return product
-  }
 }
 
 export default new ProductService();

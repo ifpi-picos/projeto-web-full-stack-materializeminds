@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import SupplierService from '../services/supllierServices/SupllierServices';
+import SupplierService from '../../services/supllierServices/SupllierServices';
 
 
 class SupplierController {

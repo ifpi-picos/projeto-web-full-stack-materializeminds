@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ProductService from '../services//productServices/ProductService';
+import ProductService from '../../services/productServices/ProductService';
 
 class ProductController {
   async createProduct(req: Request, res: Response) {
@@ -25,12 +25,6 @@ class ProductController {
       res.status(500).json({ error: 'Erro ao criar o produto' });
     }
   }
-
-	async listProduct(req:Request,res:Response){
-		const products = await ProductService.list()
-		res.json(products)
-	}
-
 }
 
 export default new ProductController();

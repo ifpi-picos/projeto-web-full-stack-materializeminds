@@ -1,28 +1,39 @@
-import express, { response } from 'express';
+import express from 'express';
+import multer from 'multer'
 
+import multerConfig from '../config/multer'
 import userController from '../controllers/userController/CreateUserController';
-import SupplierController from '../controllers/SupllierController';
-import ProductController from '../controllers/ProductController';
+import SupplierController from '../controllers/suplierController/SupllierController';
 import CartController from '../controllers/CartController';
 import atenticationController from '../controllers/AtenticationController';
+
+import productController from '../controllers/productController/ProductController';
+import listProductController from '../controllers/productController/ListProductController';
+
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { RefreshTokenUserController } from '../controllers/RefreshTokenUserController';
-import ProductService from '../services/productServices/ProductService';
 
 
 const router = express.Router();
 
 const refreshTokenUserController = new RefreshTokenUserController()
 
+router.get('/',listProductController.list)
 // Rotas para criar usuários, fornecedores e produtos
 router.post('/users', userController.handle);
 router.put('/users-update/:id', ensureAuthenticated,userController.handle);
 
 router.post('/login', atenticationController.handle);
 router.post('/refresh-token', refreshTokenUserController.handle);
-router.post('/product',ProductService.createProduct)
+
+router.post('/product',productController.createProduct)
+router.post('/productA',multerConfig.single('file'),(request,response)=>{
+	response.json({arquivo:"Deu certo"})
+})
+
+
 router.post('/cart',CartController.createCart) 
-router.post('/suppliers', SupplierController.createSupplier);
+// router.post('/suppliers', SupplierController.createSupplier);
 
 
 router.get('/products',ensureAuthenticated,(request,response)=>{
