@@ -43,6 +43,7 @@ model Supplier {
   endereco        String
   contato         String
   email           String      @unique
+  senha           String 
   products        Product[]
 }
 

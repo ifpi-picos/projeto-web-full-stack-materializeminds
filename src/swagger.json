@@ -106,7 +106,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "accessToken": {
+                    "newToken": {
                       "type": "string"
                     },
                     "refreshToken": {
