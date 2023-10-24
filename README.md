@@ -39,6 +39,14 @@ Termine com um exemplo de como obter dados do sistema ou como usá-los para uma 
 Mencione as ferramentas que você usou para criar seu projeto
 
 * [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML) - Linguagem de Marcação de Hipertexto
+* typescript
+* eslint
+* bcryptjs
+* express
+* express-async-errors
+* jsonwebtoken
+* zod
+*
 
 ## ✒️ Autores
 
