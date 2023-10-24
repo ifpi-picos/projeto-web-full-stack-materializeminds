@@ -11,7 +11,8 @@ Em resumo, o projeto busca simplificar e modernizar o processo de compra de mate
 De que coisas você precisa para instalar o software e como instalá-lo?
 
 ```
-Dar exemplos
+navegador da web, como Chrome, Firefox, Safari ou Edge, para acessar o aplicativo web.
+Conexão à Internet
 ```
 
 ### 🔧 Instalação
