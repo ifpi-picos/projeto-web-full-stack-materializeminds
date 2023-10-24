@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import createCartServices from "../services/cartServices/CreateCartServices";
+import createCartServices from "../../services/cartServices/CreateCartServices";
 
 class CartController{
 

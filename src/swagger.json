@@ -160,16 +160,46 @@
       }
     },
 
-    "/products": {
+    "/create-product": {
       "post": {
-        "summary": "Cria um novo produto.",
+        "summary": "Cria um novo produto",
         "operationId": "createProduct",
         "requestBody": {
           "description": "Dados do produto a serem criados.",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ProductInput"
+                "type": "object",
+                "properties": {
+                  "nomeDoProduto": {
+                    "type": "string",
+                    "description": "Nome do produto"
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "description": "Descrição do produto"
+                  },
+                  "preco": {
+                    "type": "number",
+                    "description": "Preço do produto"
+                  },
+                  "estoque": {
+                    "type": "integer",
+                    "description": "Quantidade em estoque"
+                  },
+                  "categoria": {
+                    "type": "string",
+                    "description": "Categoria do produto"
+                  },
+                  "supplierId": {
+                    "type": "string",
+                    "description": "ID do fornecedor do produto"
+                  },
+                  "imageProduto": {
+                    "type": "file",
+                    "description": "Imagem do produto (PNG)"
+                  }
+                }
               }
             }
           }
@@ -183,7 +213,7 @@
           }
         }
       }
-    },
+    },    
 
     "/supplier/product/add": {
       "post": {

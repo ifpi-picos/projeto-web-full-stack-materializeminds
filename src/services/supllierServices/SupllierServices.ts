@@ -1,4 +1,4 @@
-import {hash} from 'bcryptjs'
+import {hash  } from 'bcryptjs'
 
 import { prisma } from "../../lib/prisma";
 
@@ -19,11 +19,12 @@ class SupplierService {
         email
       } 
     })
-
+    // const passwordHash = await hash(senha,8)
+    
     if(suplierAlreadyExists){ 
       new Error("Suplier already exists")
     }
-
+    
     const passwordHash = await hash(senha,8)
     
     const supplier = await prisma.supplier.create({
@@ -32,7 +33,7 @@ class SupplierService {
         endereco,
         contato,
         email,
-        senha:passwordHash,
+        senha:passwordHash
       }
     })
     return supplier;

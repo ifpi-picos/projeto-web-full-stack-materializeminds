@@ -1,55 +1,52 @@
 import express from 'express';
-import multer from 'multer'
+import Multer from 'multer'
 
-import multerConfig from '../config/multer'
 import userController from '../controllers/userController/CreateUserController';
 import SupplierController from '../controllers/suplierController/SupllierController';
-import CartController from '../controllers/CartController';
-import atenticationController from '../controllers/AtenticationController';
+import CartController from '../controllers/CartController/CartController';
+import atenticationController from '../controllers/AtenticationController/AtenticationController';
 
-import productController from '../controllers/productController/ProductController';
 import listProductController from '../controllers/productController/ListProductController';
 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
-import { RefreshTokenUserController } from '../controllers/RefreshTokenUserController';
+import { RefreshTokenUserController } from '../controllers/RefreshTokenUserController/RefreshTokenUserController';
 
 
-const router = express.Router();
+import { uploadImage } from '../middlewares/uploadToFirebaseStorage';
+import CreateProductController from '../controllers/productController/CreateProductController';
+import SupllierController from '../controllers/suplierController/SupllierController';
+import ListProductController from '../controllers/productController/ListProductController';
+
 
 const refreshTokenUserController = new RefreshTokenUserController()
 
+
+const multer = Multer({
+	storage: Multer.memoryStorage(),
+});
+
+const router = express.Router();
+
+
+router.post('/oi',multer.single("file"),uploadImage,CreateProductController.createProduct);
+router.get('/list',ListProductController.list)
+
 router.get('/',listProductController.list)
-// Rotas para criar usuários, fornecedores e produtos
+
 router.post('/users', userController.handle);
 router.put('/users-update/:id', ensureAuthenticated,userController.handle);
 
 router.post('/login', atenticationController.handle);
 router.post('/refresh-token', refreshTokenUserController.handle);
 
-router.post('/product',productController.createProduct)
-router.post('/productA',multerConfig.single('file'),(request,response)=>{
-	response.json({arquivo:"Deu certo"})
-})
-
-
 router.post('/cart',CartController.createCart) 
-// router.post('/suppliers', SupplierController.createSupplier);
 
+router.post('/suppliers',SupllierController.createSupplier)
 
-router.get('/products',ensureAuthenticated,(request,response)=>{
-		return response.json([
-			{id:1, name:"celular"},
-			{id:2, name:"mesa"},
-			{id:3, name:"copo"},
-			{id:4, name:"relogio"},
-		])
-})
-
-// Rotas de teste
 
 router.get('/listSupllier',SupplierController.list)
 router.get('/user',userController.list)
 router.get('/cart',CartController.listCart)
 
 
-export default router;
+export default router

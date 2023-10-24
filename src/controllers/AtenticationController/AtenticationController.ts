@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import autenticationServices from "../services/autenticationServices/AutenticationServices";
+import autenticationServices from "../../services/autenticationServices/AutenticationServices";
 
 
 class AutenticationController {

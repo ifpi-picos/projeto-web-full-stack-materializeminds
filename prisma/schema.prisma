@@ -58,6 +58,7 @@ model Product {
   supplier      Supplier     @relation(fields: [supplierId], references: [id])
   orderItems    OrderItem[]
   carts         Cart[]       @relation("CartProduct")
+  imageUrl      String
 }
 
 model Order {

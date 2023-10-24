@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { RefreshTokenUserServices } from "../services/refreshTokenUser/RefreshTokenUserServices" 
+import { RefreshTokenUserServices } from "../../services/refreshTokenUser/RefreshTokenUserServices" 
 
 
 class RefreshTokenUserController{

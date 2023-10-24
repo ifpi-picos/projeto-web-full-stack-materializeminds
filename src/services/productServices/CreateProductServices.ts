@@ -6,16 +6,17 @@ interface IRequest{
   preco: number,
   estoque: number,
   categoria: string,
-  supplierId: string  
+  supplierId: string,
+	imageUrl:string
 }
 
 
-class ProductService {
-  async createProduct({nomeDoProduto, descricao, preco, estoque, categoria, supplierId}:IRequest) {
+class CreateProductServices {
+  async createProduct({nomeDoProduto, descricao, preco, estoque, categoria, supplierId,imageUrl}:IRequest) {
     
     // Verificar se existe o produto
     
-    const newProduct = prisma.product.create({
+    const newProduct = await prisma.product.create({
       data: {
         nomeDoProduto,  
         descricao,
@@ -23,6 +24,7 @@ class ProductService {
         estoque,
         categoria,
         supplierId,
+				imageUrl
       },
     });
   
@@ -30,7 +32,7 @@ class ProductService {
       where: { id: supplierId },
       data: {
         products: {
-          connect: { id: (await newProduct).id },
+          connect: { id: newProduct.id },
         },
       },
     });
@@ -39,4 +41,4 @@ class ProductService {
   }
 }
 
-export default new ProductService();
+export default new CreateProductServices();
