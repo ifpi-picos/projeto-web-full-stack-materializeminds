@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Documentação da API",
-		"description":"Api de conpra de materias escolares",
+		"description":"O objetivo principal desse projeto é economizar tempo e tornar mais conveniente o processo de compra de materiais escolares, aliviando os pais e responsáveis do estresse de visitar várias lojas físicas para fazer suas compras.",
     "version": "1.0.0"
   },
   "paths": {

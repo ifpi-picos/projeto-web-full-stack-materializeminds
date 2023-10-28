@@ -66,10 +66,11 @@ model Order {
   dataDoPedido      DateTime
   status            String
   total             Float
-  enderecoDeEntrega String
+  addressId         String
   userId            String
   user              User         @relation(fields: [userId], references: [id])
   orderItems        OrderItem[]
+  address           Address      @relation("AddressToOrder",fields: [addressId],references: [id])
 }
 
 model OrderItem {
@@ -91,4 +92,14 @@ model Cart {
   productId String
   user      User        @relation(fields: [userId], references: [id])
   products  Product[]   @relation("CartProduct")
+}
+
+model Address{
+  id        String      @id @default(uuid())
+  rua       String 
+  cidade    String
+  estado    String
+  cep       String
+  orderId   String     
+  order     Order[]      @relation("AddressToOrder")  
 }

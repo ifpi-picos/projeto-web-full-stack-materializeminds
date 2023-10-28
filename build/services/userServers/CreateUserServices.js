@@ -4,12 +4,12 @@ const bcryptjs_1 = require("bcryptjs");
 const prisma_1 = require("../../lib/prisma");
 class CreateUserServices {
     async createUser({ nome, sobrenome, endereco, email, senha, telefone }) {
-        const userAlreadyExists = await prisma_1.prisma.user.findFirst({
+        const userAlreadyExits = await prisma_1.prisma.user.findFirst({
             where: {
                 email
             }
         });
-        if (userAlreadyExists) {
+        if (userAlreadyExits) {
             new Error("User already exists");
         }
         const passwordHash = await (0, bcryptjs_1.hash)(senha, 8);

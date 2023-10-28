@@ -15,13 +15,13 @@ interface IUserRequest{
 class CreateUserServices {
   async createUser({nome, sobrenome, endereco, email, senha, telefone}:IUserRequest) {
     
-    const userAlreadyExists = await prisma.user.findFirst({
+    const userAlreadyExits = await prisma.user.findFirst({
       where:{
         email
       } 
     })
 
-    if(userAlreadyExists){  
+    if(userAlreadyExits){  
       new Error("User already exists")
     }
 

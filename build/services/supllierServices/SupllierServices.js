@@ -9,6 +9,7 @@ class SupplierService {
                 email
             }
         });
+        // const passwordHash = await hash(senha,8)
         if (suplierAlreadyExists) {
             new Error("Suplier already exists");
         }
@@ -19,7 +20,7 @@ class SupplierService {
                 endereco,
                 contato,
                 email,
-                senha: passwordHash,
+                senha: passwordHash
             }
         });
         return supplier;

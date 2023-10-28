@@ -7,11 +7,12 @@ const SupllierServices_1 = __importDefault(require("../../services/supllierServi
 class SupplierController {
     async createSupplier(req, res) {
         try {
-            const { nomeDaEmpresa, endereco, contato, email } = req.body;
-            const supplier = await SupllierServices_1.default.createSupplier(nomeDaEmpresa, endereco, contato, email);
+            const { nomeDaEmpresa, endereco, contato, email, senha } = req.body;
+            const supplier = await SupllierServices_1.default.createSupplier({ nomeDaEmpresa, endereco, contato, email, senha });
             res.status(201).json(supplier);
         }
         catch (error) {
+            console.log(error);
             res.status(500).json({ error: 'Erro ao criar o fornecedor' });
         }
     }
