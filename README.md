@@ -11,7 +11,8 @@ Em resumo, o projeto busca simplificar e modernizar o processo de compra de mate
 De que coisas você precisa para instalar o software e como instalá-lo?
 
 ```
-Dar exemplos
+navegador da web, como Chrome, Firefox, Safari ou Edge, para acessar o aplicativo web.
+Conexão à Internet
 ```
 
 ### 🔧 Instalação
@@ -38,6 +39,14 @@ Termine com um exemplo de como obter dados do sistema ou como usá-los para uma 
 Mencione as ferramentas que você usou para criar seu projeto
 
 * [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML) - Linguagem de Marcação de Hipertexto
+* typescript
+* eslint
+* bcryptjs
+* express
+* express-async-errors
+* jsonwebtoken
+* zod
+*
 
 ## ✒️ Autores
 
