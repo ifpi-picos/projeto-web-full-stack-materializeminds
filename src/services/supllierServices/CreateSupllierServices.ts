@@ -11,7 +11,7 @@ interface ISuplierRequest{
 }
 
 
-class SupplierService {
+class CreateSupplierService {
   async createSupplier({nomeDaEmpresa,endereco,contato,email,senha}:ISuplierRequest) {
     
     const suplierAlreadyExists = await prisma.supplier.findFirst({
@@ -38,15 +38,7 @@ class SupplierService {
     })
     return supplier;
   }
-  
-  async list(){
-		const supplier = await prisma.supplier.findMany({
-      include:{
-        products:true
-      }
-    })
-		return supplier
-	}
+
 }
 
-export default new SupplierService();
+export default new CreateSupplierService();

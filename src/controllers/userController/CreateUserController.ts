@@ -1,16 +1,14 @@
 import { Request, Response } from 'express';
 import createUserServices from '../../services/userServers/CreateUserServices';
 
-class UserController {
+class CreateUserController {
   
-  async handle(req: Request, res: Response) {
-    const { nome, sobrenome, endereco, email, senha, telefone } = req.body;
+  async create(req: Request, res: Response) {
+    const { nome, email, senha, telefone } = req.body;
     
     try{
       const user = await createUserServices.createUser({
         nome,
-        sobrenome,
-        endereco,
         email,
         senha,
         telefone,
@@ -29,4 +27,4 @@ class UserController {
 
 }
 
-export default new UserController();
+export default new CreateUserController();

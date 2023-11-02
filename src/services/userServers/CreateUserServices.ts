@@ -5,15 +5,13 @@ import { prisma } from "../../lib/prisma";
 
 interface IUserRequest{
   nome:string,
-  sobrenome:string,
-  endereco:string,
   email:string,
   senha:string,
   telefone:string,
 }
 
 class CreateUserServices {
-  async createUser({nome, sobrenome, endereco, email, senha, telefone}:IUserRequest) {
+  async createUser({nome,email, senha, telefone}:IUserRequest) {
     
     const userAlreadyExits = await prisma.user.findFirst({
       where:{
@@ -30,11 +28,10 @@ class CreateUserServices {
     const user = await prisma.user.create({
       data:{
         nome,
-        sobrenome,
-        endereco,
         email,
         senha:passwordHash,
-        telefone
+        telefone,
+        accountStatus:'ativo'
       }
     })
     return user;

@@ -3,13 +3,16 @@ import { sign } from "jsonwebtoken"
 class GenerateTokenProvider{
 
 	async execute(userId:string){
-		const token = sign({}, "98b2579d-3686-4993-9097-685f0ebb6aaa",{
-			subject: userId,
-			expiresIn: "60s"
-		})
-		return token
-	}	
+		const keyToken = process.env.KEY_TOKEN
 
+		if(keyToken != null){
+			const token = sign({}, keyToken,{
+				subject: userId,
+				expiresIn: "60s"
+			})
+			return token
+		}
+	}	
 }
 
 export { GenerateTokenProvider }

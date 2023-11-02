@@ -15,11 +15,10 @@ datasource db {
 model User {
   id            String   @id @default(uuid())
   nome          String
-  sobrenome     String
-  endereco      String
   email         String   @unique
   senha         String
   telefone      String
+  accountStatus String
   cart          Cart? 
   orders        Order[]
   
@@ -31,7 +30,7 @@ model User {
 model RefreshToken{
   id        String   @id @default(uuid())
   expiresIn Int
-  user      User     @relation(fields: [userId],references: [id])
+  user      User     @relation(fields: [userId],references: [id], onDelete: Cascade)
   userId    String   @unique
 
   @@map("refresh_token")
@@ -55,7 +54,7 @@ model Product {
   estoque       Int
   categoria     String
   supplierId    String
-  supplier      Supplier     @relation(fields: [supplierId], references: [id])
+  supplier      Supplier     @relation(fields: [supplierId], references: [id],onDelete: Cascade)
   orderItems    OrderItem[]
   carts         Cart[]       @relation("CartProduct")
   imageUrl      String
@@ -68,9 +67,9 @@ model Order {
   total             Float
   addressId         String
   userId            String
-  user              User         @relation(fields: [userId], references: [id])
+  user              User         @relation(fields: [userId], references: [id],onDelete: Cascade)
   orderItems        OrderItem[]
-  address           Address      @relation("AddressToOrder",fields: [addressId],references: [id])
+  address           Address      @relation("AddressToOrder",fields: [addressId],references: [id],onDelete: Cascade)
 }
 
 model OrderItem {
@@ -90,7 +89,7 @@ model Cart {
   total     Float
   userId    String      @unique
   productId String
-  user      User        @relation(fields: [userId], references: [id])
+  user      User        @relation(fields: [userId], references: [id],onDelete: Cascade)
   products  Product[]   @relation("CartProduct")
 }
 
@@ -99,7 +98,6 @@ model Address{
   rua       String 
   cidade    String
   estado    String
-  cep       String
-  orderId   String     
+  cep       String     
   order     Order[]      @relation("AddressToOrder")  
 }

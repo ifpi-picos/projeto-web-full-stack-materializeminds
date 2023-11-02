@@ -4,17 +4,16 @@ import { prisma } from "../../lib/prisma"
 
 interface IUserRequest{
   nome:string,
-  sobrenome:string,
-  endereco:string,
   email:string,
   senha:string,
   telefone:string,
+	accountStatus:string
   userId:string,
 }
 
 class UpdateUserServices{
 
-	async update({nome,sobrenome,endereco,email,senha,telefone,userId}:IUserRequest){
+	async update({nome,email,senha,telefone,userId}:IUserRequest){
 
 		const passwordHash = await hash(senha,8)
 
@@ -22,16 +21,13 @@ class UpdateUserServices{
 			where:{id:userId},
 			data:{
 				nome,
-				sobrenome,
-				endereco,
 				email,
 				senha:passwordHash,
-				telefone
+				telefone,
+				accountStatus:'ativo'
 			}
 		})
 		return userUpdate
 	}
-
-
 }
 export default new UpdateUserServices() 
