@@ -4,7 +4,6 @@ import ReturnUserServices from "../../services/userServers/ReturnUserServices";
 class ReturnUserController{
 	async return(req: Request, res: Response){
 		const {userId} = req.params
-
 		try{
 			const dataUser = await ReturnUserServices.getUSer({userId})
 			res.json(dataUser)

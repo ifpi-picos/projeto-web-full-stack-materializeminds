@@ -54,6 +54,6 @@ app.use((error:Error,request:Request,response:Response,next:NextFunction)=>{
   next()
 })
 
-app.listen(3333,()=>{
+app.listen(process.env.PORT || 3333,()=>{
   console.log("Aplicação rodando na porta 3333")
 })

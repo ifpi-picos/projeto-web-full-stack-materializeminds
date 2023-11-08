@@ -9,9 +9,7 @@ class ReturnUserServices{
 	async getUSer({userId}:IBodyUser){
 		
 		if(!userId){
-			console.log('dgfd')
 			return new Error("Email Ivalido") 
-			
 		}
 		
 		const user = await prisma.user.findUnique({
@@ -26,11 +24,9 @@ class ReturnUserServices{
 				telefone:true,
 				orders:true,
 				refresh_token:true,
-
 			}
 
 		})
-
 		return user
 		
 	}

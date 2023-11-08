@@ -11,7 +11,7 @@ class RefreshTokenUserServices{
 				userId:userId
 			}
 		})
-
+		console.log(refreshToken)
 		if(!refreshToken){
 			throw new Error("Refresh token invalid")
 		}
