@@ -38,6 +38,7 @@ admin.initializeApp({
 });
 
 const app = express()
+const port = process.env.PORT || 3001;
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -54,7 +55,6 @@ app.use((error:Error,request:Request,response:Response,next:NextFunction)=>{
   next()
 })
 
-app.listen(process.env.PORT || 3333,()=>{
-  console.log(process.env.PORT)
-  console.log("Aplicação rodando na porta 3333")
+app.listen(port,()=>{
+  console.log(`Aplicação online na porta ${port}`)
 })
