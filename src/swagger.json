@@ -283,10 +283,6 @@
 						"senha":{
 
 						},
-						"endereco":{
-							"type":"string",
-							"description":"Endereço do usuário"
-						},
 						"telefone":{
 							"type":"string",
 							"description":"Numero de telefone do usuário"

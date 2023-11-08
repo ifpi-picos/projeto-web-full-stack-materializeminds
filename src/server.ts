@@ -11,7 +11,6 @@ import * as fs from 'fs';
 import router from './routes/Routes'
 import swaggerDocs from './swagger.json'
 
-// Carregar variáveis de ambiente a partir do arquivo .env
 dotenv.config();
 
 // Configurar o Firebase Admin SDK
@@ -38,7 +37,7 @@ admin.initializeApp({
 });
 
 const app = express()
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3333;
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
