@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RefreshTokenUserServices = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const prisma_1 = require("../../lib/prisma");
 const GenerateTokenProvider_1 = require("../../provider/GenerateTokenProvider");
@@ -15,6 +14,7 @@ class RefreshTokenUserServices {
                 userId: userId
             }
         });
+        console.log(refreshToken);
         if (!refreshToken) {
             throw new Error("Refresh token invalid");
         }
@@ -34,4 +34,4 @@ class RefreshTokenUserServices {
         return { token };
     }
 }
-exports.RefreshTokenUserServices = RefreshTokenUserServices;
+exports.default = new RefreshTokenUserServices();

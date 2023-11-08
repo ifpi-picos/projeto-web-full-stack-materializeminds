@@ -55,6 +55,7 @@ firebase_admin_1.default.initializeApp({
     storageBucket: BUCKET
 });
 const app = (0, express_1.default)();
+const port = process.env.PORT || 3001;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, morgan_1.default)('dev'));
@@ -67,6 +68,6 @@ app.use((error, request, response, next) => {
     });
     next();
 });
-app.listen(3333, () => {
-    console.log("Aplicação rodando na porta 3333");
+app.listen(port, () => {
+    console.log(`Aplicação online na porta ${port}`);
 });

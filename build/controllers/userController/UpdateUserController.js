@@ -6,15 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const UpdateUserServices_1 = __importDefault(require("../../services/userServers/UpdateUserServices"));
 class UpdateUserController {
     async handle(req, res) {
-        const { nome, sobrenome, endereco, email, senha, telefone, userId } = req.body;
+        const { nome, email, senha, telefone, accountStatus, userId } = req.body;
         try {
             const user = await UpdateUserServices_1.default.update({
                 nome,
-                sobrenome,
-                endereco,
                 email,
                 senha,
                 telefone,
+                accountStatus,
                 userId
             });
             return res.json(user);
