@@ -10,7 +10,7 @@ interface IRequest{
 
 }
 
-class AutenticationServices{
+class UserAutenticationServices{
 	async createAtentication({email,senha}:IRequest){
 
 		const userAlreadyExists = await prisma.user.findFirst({
@@ -20,7 +20,7 @@ class AutenticationServices{
 		})
 
 		if(!userAlreadyExists){
-			throw  new Error(" User or password incorrect!")
+			throw new Error(" User or password incorrect!")
 
 		}
 		
@@ -30,6 +30,7 @@ class AutenticationServices{
 			throw  new Error(" User or password incorrect!")
 		}
 
+		const userId = userAlreadyExists.id
 		const generateTokenProvider = new GenerateTokenProvider()
 		const token = await generateTokenProvider.execute(userAlreadyExists.id)
 		
@@ -42,9 +43,9 @@ class AutenticationServices{
 		const generateRefreshToken = new GenerateRefreshToken()
 		const refreshToken = await generateRefreshToken.execute(userAlreadyExists.id)
 		
-		return {token,refreshToken}
+		return {token,refreshToken,userId}
 	}
 	
 }
 
-export default new AutenticationServices()
+export default new UserAutenticationServices()

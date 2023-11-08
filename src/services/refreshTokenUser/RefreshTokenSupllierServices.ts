@@ -5,17 +5,17 @@ import { GenerateRefreshToken } from "../../provider/GenerateRefreshToken"
 
 class RefreshTokenUserServices{
 
-	async execute(userId:string){
+	async execute(supllierId:string){
 		const refreshToken =  await prisma.refreshToken.findFirst({
 			where:{
-				userId:userId
+				userId:supllierId
 			}
 		})
 
 		if(!refreshToken){
 			throw new Error("Refresh token invalid")
 		}
-		
+
 		const refreshTokenExpired = dayjs.isDayjs(dayjs.unix(refreshToken.expiresIn))
 		const generateTokenProvider = new GenerateTokenProvider()
 		const token = await generateTokenProvider.execute(refreshToken.userId)
@@ -36,4 +36,4 @@ class RefreshTokenUserServices{
 	}
 }
 
-export default new RefreshTokenUserServices() 
+export { RefreshTokenUserServices }

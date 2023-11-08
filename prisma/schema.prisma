@@ -37,13 +37,14 @@ model RefreshToken{
 }
 
 model Supplier {
-  id              String      @id @default(uuid())
+  id              String      @id
   nomeDaEmpresa   String
-  endereco        String
   contato         String
   email           String      @unique
   senha           String 
   products        Product[]
+  addressId       String
+  address         Address?    @relation("AddressToSupllier",fields: [addressId], references: [id])
 }
 
 model Product {
@@ -99,5 +100,6 @@ model Address{
   cidade    String
   estado    String
   cep       String     
-  order     Order[]      @relation("AddressToOrder")  
+  order     Order[]      @relation("AddressToOrder")
+  supllier  Supplier[]   @relation("AddressToSupllier")
 }

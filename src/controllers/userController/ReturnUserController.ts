@@ -3,10 +3,10 @@ import ReturnUserServices from "../../services/userServers/ReturnUserServices";
 
 class ReturnUserController{
 	async return(req: Request, res: Response){
-		const {email} = req.params
+		const {userId} = req.params
 
 		try{
-			const dataUser = await ReturnUserServices.getUSer({email})
+			const dataUser = await ReturnUserServices.getUSer({userId})
 			res.json(dataUser)
 
 		}catch(e){

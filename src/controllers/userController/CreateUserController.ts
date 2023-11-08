@@ -15,16 +15,14 @@ class CreateUserController {
       });
 
       return res.json(user);
-    } catch(error){
-      console.log(error)
+    } catch(erro ){
+      console.error(erro)
+      if(erro instanceof Error){
+        res.status(400).json({ erro: erro.message });
+      }
+      
     }
   }
-
-  async list(req: Request, res: Response){
-    const user = await createUserServices.list()
-    res.json(user)
-  }
-
 }
 
 export default new CreateUserController();

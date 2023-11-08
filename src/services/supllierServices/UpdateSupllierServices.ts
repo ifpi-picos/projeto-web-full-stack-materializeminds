@@ -4,7 +4,7 @@ import { prisma } from "../../lib/prisma";
 
 interface ISuplierRequest{
   nomeDaEmpresa: string,
-  endereco: string,
+  addressId: string,
   contato: string,
   email: string,
   senha: string
@@ -12,7 +12,7 @@ interface ISuplierRequest{
 
 
 class UpdateSupplierService {
-  async createSupplier({nomeDaEmpresa,endereco,contato,email,senha}:ISuplierRequest) {
+  async createSupplier({nomeDaEmpresa,addressId,contato,email,senha}:ISuplierRequest) {
     
     const suplierAlreadyExists = await prisma.supplier.findFirst({
       where:{
@@ -32,7 +32,7 @@ class UpdateSupplierService {
 			},
       data:{
         nomeDaEmpresa,
-        endereco,
+        addressId,
         contato,
         email,
         senha:passwordHash

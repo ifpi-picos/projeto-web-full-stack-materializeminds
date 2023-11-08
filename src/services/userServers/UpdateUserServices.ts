@@ -2,7 +2,7 @@ import {hash} from 'bcryptjs'
 
 import { prisma } from "../../lib/prisma"
 
-interface IUserRequest{
+interface IUserBody{
   nome:string,
   email:string,
   senha:string,
@@ -13,7 +13,7 @@ interface IUserRequest{
 
 class UpdateUserServices{
 
-	async update({nome,email,senha,telefone,userId}:IUserRequest){
+	async update({nome,email,senha,telefone,userId}:IUserBody){
 
 		const passwordHash = await hash(senha,8)
 

@@ -2,36 +2,29 @@ import { prisma } from "../../lib/prisma";
 
 
 interface ISuplierRequest{
-	email: string
+	suplierId: string
 }
 
 
 class ReturnSupllierServices{
-	async getSupllier({email}:ISuplierRequest){
+	async getSupllier({suplierId}:ISuplierRequest){
 
 		const supplier = await prisma.supplier.findMany({
 			where:{
-				email:email
-			}
-		})
-		
-		return supplier
-	}
-
-	async getSupllierAndProducts({email}:ISuplierRequest){
-		
-		const supplier = await prisma.supplier.findMany({
-			where:{
-				email:email
+				id:suplierId
 			},
-			
-			include:{
-				products:true
+			select:{
+				id:true,
+				nomeDaEmpresa:true,
+				contato:true,
+				email:true,
+				products: true,
+				address: true,
 			}
 		})
+		
 		return supplier
 	}
-
 }
 
 export default new ReturnSupllierServices()

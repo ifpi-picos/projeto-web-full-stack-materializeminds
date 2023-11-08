@@ -6,13 +6,14 @@ import UpdateUserController from '../controllers/userController/UpdateUserContro
 import DeleteUserController from '../controllers/userController/DeleteUserController';
 import ReturnUserController from '../controllers/userController/ReturnUserController';
 
-import atenticationController from '../controllers/AtenticationController/AtenticationController';
+import UserAtenticationController from '../controllers/AtenticationController/UserAutenticationController';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { RefreshTokenUserController } from '../controllers/RefreshTokenUserController/RefreshTokenUserController';
 
 import CreateSupplierController from '../controllers/suplierController/CreateSupllierController';
 import ReturnSupllierController from '../controllers/suplierController/ReturnSupllierController';
 import UpdateSupllierController from '../controllers/suplierController/UpdateSupllierController';
+
 
 import CartController from '../controllers/CartController/CartController';
 
@@ -35,16 +36,18 @@ const router = express.Router();
 
 
 router.post('/user', CreateUserController.create);
-router.delete('/user',DeleteUserController.delete);
-router.get('/user',ReturnUserController.return)
-router.put('/user-update/:id', ensureAuthenticated,UpdateUserController.handle);
-
-router.post('/login', atenticationController.handle);
+router.delete('/user/:userId',ensureAuthenticated,DeleteUserController.delete);
+router.get('/user/:userId',ensureAuthenticated,ReturnUserController.return)
+router.put('/user-update/:userId',ensureAuthenticated,UpdateUserController.handle);
+router.post('/login', UserAtenticationController.userAtentication);
 router.post('/refresh-token', refreshTokenUserController.handle);
 
 router.post('/supplier',CreateSupplierController.createSupplier)
-router.get('/supplier',ReturnSupllierController.getSupllier)
+router.get('/supplier/:supllierId',ReturnSupllierController.getSupllier)
 router.put('/supplier',UpdateSupllierController.createSupplier)
+// router.post('/supllier/login',SupllierAutenticationController.supllierAtentication);
+// router.post('/refresh-token', refreshTokenUserController.handle);
+
 
 router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/product',ListProductController.list)

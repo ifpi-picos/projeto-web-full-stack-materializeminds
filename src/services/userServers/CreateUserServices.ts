@@ -20,7 +20,7 @@ class CreateUserServices {
     })
 
     if(userAlreadyExits){  
-      new Error("User already exists")
+      throw new Error('User already exists');
     }
 
     const passwordHash = await hash(senha,8)
@@ -36,15 +36,6 @@ class CreateUserServices {
     })
     return user;
   }
-
-  async list(){
-		const user = await prisma.user.findMany({
-      include:{
-        cart:true
-      }
-    })
-		return user
-	}
 }
 
 export default new CreateUserServices()

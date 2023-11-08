@@ -2,23 +2,37 @@ import { prisma } from "../../lib/prisma";
 
 
 interface IBodyUser{
-	email: string
+	userId: string
 }
 
 class ReturnUserServices{
-	async getUSer({email}:IBodyUser){
+	async getUSer({userId}:IBodyUser){
 		
-		if(!email){
+		if(!userId){
+			console.log('dgfd')
 			return new Error("Email Ivalido") 
 			
 		}
 		
 		const user = await prisma.user.findUnique({
-			where:{
-				email:email
+			where: {
+				id: userId,
+			},
+			select:{
+				id: true,
+				nome: true,
+				email:true,
+				cart:true,
+				telefone:true,
+				orders:true,
+				refresh_token:true,
+
 			}
-		}) 
+
+		})
+
 		return user
+		
 	}
 }
 export default new ReturnUserServices()
