@@ -50,7 +50,7 @@ router.put('/supplier',UpdateSupllierController.createSupplier)
 
 
 router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
-router.get('/product',ListProductController.list)
+router.get('/',ListProductController.list)
 router.get('/product/:id',ensureAuthenticated,)
 
 
