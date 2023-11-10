@@ -19,7 +19,7 @@ import CartController from '../controllers/CartController/CartController';
 
 import { uploadImage } from '../middlewares/uploadToFirebaseStorage';
 import CreateProductController from '../controllers/productController/CreateProductController';
-import ListProductController from '../controllers/productController/ListProductController';
+import ReturnProductController from '../controllers/productController/ReturnProductController';
 
 import CreateOrdenController from '../controllers/ordenController/CreateOrdenController';
 import DeleteOrderController from '../controllers/ordenController/DeleteOrderController';
@@ -50,8 +50,8 @@ router.put('/supplier',UpdateSupllierController.createSupplier)
 
 
 router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
-router.get('/',ListProductController.list)
-router.get('/product/:id',ensureAuthenticated,)
+router.get('/',ReturnProductController.findMany)
+router.get('/product/:id',ReturnProductController.findUnique)
 
 
 router.post('/pedido',ensureAuthenticated,CreateOrdenController.createOrder)

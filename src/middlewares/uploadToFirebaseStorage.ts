@@ -1,10 +1,13 @@
 // service.ts
 import admin from "firebase-admin";
 import { Request, Response, NextFunction } from "express";
+import { getStorage, ref, deleteObject } from "firebase/storage";
+
 
 
 export function uploadImage (req: Request, res: Response, next: NextFunction) {
   const bucket = admin.storage().bucket();
+  
 
   if (!req.file) {
     return next();
@@ -29,8 +32,9 @@ export function uploadImage (req: Request, res: Response, next: NextFunction) {
 
   stream.on("finish", async () => {
     await file.makePublic();
+    
+    req.headers.filebaseUrl =`https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fullNamefile)}?alt=media`; 
 
-    req.headers.filebaseUrl =`https://storage.googleapis.com/${process.env.FIREBASE_STORAGE_BUCKET}/${fullNamefile}`; 
     next();
   });
 

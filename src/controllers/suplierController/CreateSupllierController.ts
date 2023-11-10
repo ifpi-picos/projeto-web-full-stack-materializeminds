@@ -1,19 +1,30 @@
 import { Request, Response } from 'express';
 import CreateSupplierService from '../../services/supllierServices/CreateSupllierServices';
+import CreateAddressServices from '../../services/address/CreateAddressServices';
+
 
 class CreateSupplierController {
   async createSupplier(req: Request, res: Response) {
     try {
-      const {id, nomeDaEmpresa, addressId, contato, email, senha} = req.body;
+      const {id, nomeDaEmpresa, contato, email, senha,endereco} = req.body;
       
+      const {rua,cidade,estado,cep} =  endereco
+      
+      const address = await CreateAddressServices.createAddress({rua,cidade,estado,cep})
 
+      if(!address.id){
+        throw new Error("Endereço invalido")
+      }
+      
+      const addressId = address.id
+      
       const supplier = await CreateSupplierService.createSupplier({
         id,
         nomeDaEmpresa,
-        addressId,
         contato,
         email,
-        senha
+        senha,
+        addressId,
       });
       
       res.status(201).json(supplier);

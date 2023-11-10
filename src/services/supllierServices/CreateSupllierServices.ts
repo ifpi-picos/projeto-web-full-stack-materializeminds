@@ -31,10 +31,10 @@ class CreateSupplierService {
       data:{
         id,
         nomeDaEmpresa,
-        addressId,
         contato,
         email,
-        senha:passwordHash
+        senha:passwordHash,
+        addressId,
       }
     })
     return supplier;
