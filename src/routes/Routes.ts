@@ -20,6 +20,7 @@ import CartController from '../controllers/CartController/CartController';
 import { uploadImage } from '../middlewares/uploadToFirebaseStorage';
 import CreateProductController from '../controllers/productController/CreateProductController';
 import ReturnProductController from '../controllers/productController/ReturnProductController';
+import DeleteProductController from '../controllers/productController/DeleteProductController';
 
 import CreateOrdenController from '../controllers/ordenController/CreateOrdenController';
 import DeleteOrderController from '../controllers/ordenController/DeleteOrderController';
@@ -48,11 +49,10 @@ router.put('/supplier',UpdateSupllierController.createSupplier)
 // router.post('/supllier/login',SupllierAutenticationController.supllierAtentication);
 // router.post('/refresh-token', refreshTokenUserController.handle);
 
-
 router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/',ReturnProductController.findMany)
-router.get('/product/:id',ReturnProductController.findUnique)
-
+router.get('/product/:productId',ReturnProductController.findUnique)
+router.delete('/product/:productId',DeleteProductController.deleteUnique)
 
 router.post('/pedido',ensureAuthenticated,CreateOrdenController.createOrder)
 router.delete('/pedido/:id',ensureAuthenticated,DeleteOrderController.deleteOrder)

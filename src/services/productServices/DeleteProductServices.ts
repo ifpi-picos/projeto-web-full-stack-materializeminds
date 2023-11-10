@@ -1,20 +1,54 @@
 import { prisma } from "../../lib/prisma";
-import { getStorage, ref, deleteObject } from "firebase/storage";
+import * as admin from 'firebase-admin';
+
 
 interface IParamsProduct{
-	id:string
+	productId:string
 }
 
 class DeleteProductServices{
-	delete({id}:IParamsProduct){
-		const storage = getStorage();
+	async deleteUniqueProduct({productId}:IParamsProduct){
 		
+		const product = await prisma.product.findUnique({
+			where:{
+				id:productId
+			}
+		})
+
+		if(!product){
+			new Error("Produto não existe")
+		}
+		
+		const fileUrl  = product?.imageUrl
+		
+		if (fileUrl && typeof fileUrl === 'string' && fileUrl.trim() !== ''){
+
+			const filePathAndNameWithQuery = fileUrl.split('/o/')[1];
+    	const filePathAndName = filePathAndNameWithQuery.split('?')[0];
+    	console.log(filePathAndName)
+
+			const storage = admin.storage();
+
+			const fileRef = storage.bucket().file(filePathAndName);
 
 
+			fileRef.delete()
+				.then(() => {
+					console.log('Arquivo excluído com sucesso.');
+				})
+				.catch((error) => {
+					console.error('Erro ao excluir o arquivo:', error);
+				});
+		}
 
+		const deletedProduct = prisma.product.delete({
+			where:{
+				id:productId
+			}
+		})
 
+		return deletedProduct
 	}
-
 }
 
 export default new DeleteProductServices()
