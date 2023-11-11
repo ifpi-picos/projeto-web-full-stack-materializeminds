@@ -140,7 +140,7 @@
         "summary": "Cria um novo fornecedor.",
         "operationId": "createSupplier",
         "requestBody": {
-          "description": "Dados do fornecedor a serem criados.",
+          "description": "Dados do fornecedor a serem enviados na requisição.",
           "content": {
             "application/json": {
               "schema": {
@@ -281,7 +281,8 @@
       				"description": "O endereço de e-mail do usuário."
 						},
 						"senha":{
-
+              "type": "string",
+      				"description": "Senha do usuário."
 						},
 						"telefone":{
 							"type":"string",
@@ -297,8 +298,25 @@
 						"description":"O nome do Fornecedor"
 					},
 					"endereco":{
-						"type":"string",
-						"description":"Nome do bairro do Fornecedor"
+						"type":"object",
+						"properties": {
+              "rua":{
+                "type":"string",
+                "description":""
+              },
+              "cidade":{
+                "type":"string",
+                "description":""
+              },
+              "estado":{
+                "type":"string",
+                "description":""
+              },
+              "cep":{
+                "type":"string",
+                "description":""
+              }
+            }
 					},
 					"contato":{
 						"type":"string",

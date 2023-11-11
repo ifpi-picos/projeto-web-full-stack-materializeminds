@@ -6,7 +6,7 @@ import admin from "firebase-admin";
 import dotenv from "dotenv";
 import path from"path";
 import * as fs from 'fs';
-
+import cors from 'cors';
 
 import router from './routes/Routes'
 import swaggerDocs from './swagger.json'
@@ -39,6 +39,11 @@ admin.initializeApp({
 const app = express()
 const port = process.env.PORT || 3333;
 
+app.use(cors());
+
+app.options('*', cors());
+
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(morgan('dev'))
@@ -47,10 +52,10 @@ app.use('/docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))
 app.use(router)
 
 app.use((error:Error,request:Request,response:Response,next:NextFunction)=>{
-  return response.json({
+  response.json({
     status:"error",
     message:error.message
-  })
+  });
   next()
 })
 

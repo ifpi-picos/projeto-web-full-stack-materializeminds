@@ -1,0 +1,392 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação da API",
+        "description": "O objetivo principal desse projeto é economizar tempo e tornar mais conveniente o processo de compra de materiais escolares, aliviando os pais e responsáveis do estresse de visitar várias lojas físicas para fazer suas compras.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/user": {
+            "post": {
+                "summary": "Cria um novo usuário.",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Dados do usuário a serem criados.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso."
+                    },
+                    "400": {
+                        "description": "Requisição inválida."
+                    }
+                }
+            }
+        },
+        "paths": {
+            "/login": {
+                "post": {
+                    "summary": "Rota de Login",
+                    "description": "Efetua login e gera tokens de autenticação.",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "password": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Login bem-sucedido",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "accessToken": {
+                                                "type": "string"
+                                            },
+                                            "refreshToken": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "401": {
+                            "description": "Falha na autenticação"
+                        }
+                    }
+                }
+            }
+        },
+        "/refresh-token": {
+            "post": {
+                "summary": "Rota de Renovação de Token",
+                "description": "Gera novos tokens com base no ID do usuário.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tokens renovados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "newToken": {
+                                            "type": "string"
+                                        },
+                                        "refreshToken": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "userId": {
+                                                    "type": "string"
+                                                },
+                                                "expiration": {
+                                                    "type": "number",
+                                                    "description": "Tempo de expiração do refresh token em segundos"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Falha na renovação de token"
+                    }
+                }
+            }
+        },
+        "/suppliers": {
+            "post": {
+                "summary": "Cria um novo fornecedor.",
+                "operationId": "createSupplier",
+                "requestBody": {
+                    "description": "Dados do fornecedor a serem enviados na requisição.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Fornecedor criado com sucesso."
+                    },
+                    "400": {
+                        "description": "Requisição inválida."
+                    }
+                }
+            }
+        },
+        "/create-product": {
+            "post": {
+                "summary": "Cria um novo produto",
+                "operationId": "createProduct",
+                "requestBody": {
+                    "description": "Dados do produto a serem criados.",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nomeDoProduto": {
+                                        "type": "string",
+                                        "description": "Nome do produto"
+                                    },
+                                    "descricao": {
+                                        "type": "string",
+                                        "description": "Descrição do produto"
+                                    },
+                                    "preco": {
+                                        "type": "number",
+                                        "description": "Preço do produto"
+                                    },
+                                    "estoque": {
+                                        "type": "integer",
+                                        "description": "Quantidade em estoque"
+                                    },
+                                    "categoria": {
+                                        "type": "string",
+                                        "description": "Categoria do produto"
+                                    },
+                                    "supplierId": {
+                                        "type": "string",
+                                        "description": "ID do fornecedor do produto"
+                                    },
+                                    "imageProduto": {
+                                        "type": "file",
+                                        "description": "Imagem do produto (PNG)"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produto criado com sucesso."
+                    },
+                    "400": {
+                        "description": "Requisição inválida."
+                    }
+                }
+            }
+        },
+        "/supplier/product/add": {
+            "post": {
+                "summary": "Adiciona um produto a um fornecedor.",
+                "operationId": "addProductToSupplier",
+                "requestBody": {
+                    "description": "Dados da adição de produto ao fornecedor.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductSupplierInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produto adicionado ao fornecedor com sucesso."
+                    },
+                    "400": {
+                        "description": "Requisição inválida."
+                    }
+                }
+            }
+        },
+        "/cart": {
+            "post": {
+                "summary": "Cria um novo carrinho.",
+                "operationId": "createCart",
+                "requestBody": {
+                    "description": "Dados do carrinho a serem criados.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Carrinho criado com sucesso."
+                    },
+                    "400": {
+                        "description": "Requisição inválida."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserInput": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "description": "O nome do usário"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "O endereço de e-mail do usuário."
+                    },
+                    "senha": {
+                        "type": "string",
+                        "description": "Senha do usuário."
+                    },
+                    "telefone": {
+                        "type": "string",
+                        "description": "Numero de telefone do usuário"
+                    }
+                }
+            },
+            "SupplierInput": {
+                "type": "object",
+                "properties": {
+                    "nomeDaEmpresa": {
+                        "type": "string",
+                        "description": "O nome do Fornecedor"
+                    },
+                    "endereco": {
+                        "type": "object",
+                        "properties": {
+                            "rua": {
+                                "type": "string",
+                                "description": ""
+                            },
+                            "cidade": {
+                                "type": "string",
+                                "description": ""
+                            },
+                            "estado": {
+                                "type": "string",
+                                "description": ""
+                            },
+                            "cep": {
+                                "type": "string",
+                                "description": ""
+                            }
+                        }
+                    },
+                    "contato": {
+                        "type": "string",
+                        "description": "Numero de telefone do fornecedor"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Endereço de email para contato com o fornecedor"
+                    }
+                }
+            },
+            "ProductInput": {
+                "type": "object",
+                "properties": {
+                    "nomeDoProduto": {
+                        "type": "string",
+                        "description": "O nome do produto"
+                    },
+                    "descricao": {
+                        "type": "string",
+                        "description": "Descrição do produto"
+                    },
+                    "preco": {
+                        "type": "float",
+                        "description": "Valor do produto"
+                    },
+                    "estoque": {
+                        "type": "int",
+                        "description": "Quantidade do produto"
+                    },
+                    "categoria": {
+                        "type": "string",
+                        "description": "Tipo da categoria do produto"
+                    },
+                    "supplierId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Indetificador unico do fornecedor"
+                    }
+                }
+            },
+            "ProductSupplierInput": {
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Indetificador unico do user"
+                    },
+                    "supplierId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Indetificador unico do fornecedor"
+                    }
+                }
+            },
+            "CartInput": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "O nome do estado do carrinho, aberto ou fechado"
+                    },
+                    "total": {
+                        "type": "float",
+                        "description": "Valor total do carrinho"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Indetificador unico do user"
+                    }
+                }
+            }
+        }
+    }
+}
