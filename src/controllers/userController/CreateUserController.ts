@@ -15,12 +15,15 @@ class CreateUserController {
       });
 
       return res.json(user);
-    } catch(erro ){
-      console.error(erro)
-      if(erro instanceof Error){
-        res.status(400).json({ erro: erro.message });
-      }
+    } catch(error:any){
       
+      console.log(error)
+
+      if (error instanceof Error) {
+        res.status(400).json({statusText: error.message });
+      } else {
+        res.status(500).json({ erro: 'Erro interno do servidor' });
+      }
     }
   }
 }
