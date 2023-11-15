@@ -7,8 +7,8 @@ class DeleteUserController{
 		const {userId} = req.params
 
 		try{
-			const user = DeleteUserServices.deleteUser({userId})
-			res.send(user)
+			const user = DeleteUserServices.deleteAll()
+			res.status(200)
 		}catch(e){
 			console.log(e)
 		}

@@ -37,7 +37,7 @@ const router = express.Router();
 
 
 router.post('/user', CreateUserController.create);
-router.delete('/user/:userId',ensureAuthenticated,DeleteUserController.delete);
+router.delete('/user',DeleteUserController.delete);
 router.get('/user/:userId',ensureAuthenticated,ReturnUserController.return)
 router.put('/user-update/:userId',ensureAuthenticated,UpdateUserController.handle);
 router.post('/login', UserAtenticationController.userAtentication);

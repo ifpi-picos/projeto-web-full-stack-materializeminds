@@ -46,10 +46,10 @@
     "fetch-blob": "^4.0.0",
     "firebase": "^10.5.2",
     "firebase-admin": "^11.11.0",
+    "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "swagger-ui-express": "^5.0.0",
-    "zod": "^3.22.2"
+    "swagger-ui-express": "^5.0.0"
   }
 }

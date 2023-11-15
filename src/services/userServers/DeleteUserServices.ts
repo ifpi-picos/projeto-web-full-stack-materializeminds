@@ -13,7 +13,9 @@ class DeleteUserServices{
 			},
 		})
 	}
-
+	async deleteAll(){
+		const deletedUser = await prisma.user.deleteMany({})
+	}
 }
 export default new DeleteUserServices()
 
