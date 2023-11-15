@@ -1,29 +1,29 @@
 import express from 'express';
 import Multer from 'multer'
 
-import CreateUserController from '../controllers/userController/CreateUserController';
-import UpdateUserController from '../controllers/userController/UpdateUserController';
-import DeleteUserController from '../controllers/userController/DeleteUserController';
-import ReturnUserController from '../controllers/userController/ReturnUserController';
+import CreateUserController from '../useCase/useServices/CreateUser/CreateUserController';
+import UpdateUserController from '../useCase/useServices/updateUser/UpdateUserController';
+import DeleteUserController from '../useCase/useServices/deleteUser/DeleteUserController';
+import ReturnUserController from '../useCase/useServices/returnUser/ReturnUserController';
 
-import UserAtenticationController from '../controllers/AtenticationController/UserAutenticationController';
+import UserAtenticationController from '../useCase/autenticationServices/UserAutenticationController';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
-import { RefreshTokenUserController } from '../controllers/RefreshTokenUserController/RefreshTokenUserController';
+import { RefreshTokenUserController } from '../useCase/refreshTokenUser/RefreshTokenUserController';
 
-import CreateSupplierController from '../controllers/suplierController/CreateSupllierController';
-import ReturnSupllierController from '../controllers/suplierController/ReturnSupllierController';
-import UpdateSupllierController from '../controllers/suplierController/UpdateSupllierController';
+import CreateSupplierController from '../useCase/supllierServices/createSupllier/CreateSupllierController';
+import ReturnSupllierController from '../useCase/supllierServices/returnSupllier/ReturnSupllierController';
+import UpdateSupllierController from '../useCase/supllierServices/updateSupllier/UpdateSupllierController';
 
 
-import CartController from '../controllers/CartController/CartController';
+import CartController from '../useCase/cartServices/create/CartController';
 
 import { uploadImage } from '../middlewares/uploadToFirebaseStorage';
-import CreateProductController from '../controllers/productController/CreateProductController';
-import ReturnProductController from '../controllers/productController/ReturnProductController';
-import DeleteProductController from '../controllers/productController/DeleteProductController';
+import CreateProductController from '../useCase/productServices/create/CreateProductController';
+import ReturnProductController from '../useCase/productServices/return/ReturnProductController';
+import DeleteProductController from '../useCase/productServices/delete/DeleteProductController';
 
-import CreateOrdenController from '../controllers/ordenController/CreateOrdenController';
-import DeleteOrderController from '../controllers/ordenController/DeleteOrderController';
+import CreateOrdenController from '../useCase/order/create/CreateOrdenController';
+import DeleteOrderController from '../useCase/order/delete/DeleteOrderController';
 
 
 const refreshTokenUserController = new RefreshTokenUserController()
