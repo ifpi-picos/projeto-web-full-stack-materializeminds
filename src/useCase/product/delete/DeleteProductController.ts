@@ -9,9 +9,9 @@ class DeleteProductController{
 		const {productId} = req.params
 
 		try{
-			const deletedProduct = DeleteProductServices.deleteUniqueProduct({productId})
+			const deletedProduct = await DeleteProductServices.deleteUniqueProduct({productId})
 
-			const menssage = `O produto ${(await deletedProduct).nomeDoProduto} foi deletado`
+			const menssage = `O produto ${(deletedProduct).nomeDoProduto} foi deletado`
 			
 			res.status(200).json(menssage)
 

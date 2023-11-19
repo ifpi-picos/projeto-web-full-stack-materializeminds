@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import RefreshTokenUserServices  from "./RefreshTokenSupllierServices" 
+import RefreshTokenSupllierServices  from "./RefreshTokenSupllierServices" 
 
 
 class RefreshTokenSupllierController{
@@ -7,7 +7,7 @@ class RefreshTokenSupllierController{
 		const {supllierId} = req.body
 
 		try{
-			const token  = await RefreshTokenUserServices.execute(supllierId)
+			const token  = await RefreshTokenSupllierServices.execute(supllierId)
 
 			return res.json(token)
 

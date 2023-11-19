@@ -6,23 +6,23 @@ import UpdateUserController from '../useCase/useServices/updateUser/UpdateUserCo
 import DeleteUserController from '../useCase/useServices/deleteUser/DeleteUserController';
 import ReturnUserController from '../useCase/useServices/returnUser/ReturnUserController';
 
-import UserAtenticationController from '../useCase/autenticationServices/autenticationUserServices/UserAutenticationController';
+import UserAtenticationController from '../useCase/autentication/autenticationUser/UserAutenticationController';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { RefreshTokenUserController } from '../useCase/refreshToken/refreshTokenUser/RefreshTokenUserController';
 import RefreshTokenSupllierController from '../useCase/refreshToken/refreshTokenSupllier/RefreshTokenSupllierController';
-import SupllierAutenticationController from '../useCase/autenticationServices/autenticationSupllierServices/SupllierAutenticationController';
+import SupllierAutenticationController from '../useCase/autentication/autenticationSupllier/SupllierAutenticationController';
 
-import CreateSupplierController from '../useCase/supllierServices/createSupllier/CreateSupllierController';
-import ReturnSupllierController from '../useCase/supllierServices/returnSupllier/ReturnSupllierController';
-import UpdateSupllierController from '../useCase/supllierServices/updateSupllier/UpdateSupllierController';
+import CreateSupplierController from '../useCase/supllier/createSupllier/CreateSupllierController';
+import ReturnSupllierController from '../useCase/supllier/returnSupllier/ReturnSupllierController';
+import UpdateSupllierController from '../useCase/supllier/updateSupllier/UpdateSupllierController';
+import DeleteSupllierController from '../useCase/supllier/deleteSupllier/DeleteSupllierController';
 
-
-import CartController from '../useCase/cartServices/create/CartController';
+import CartController from '../useCase/cart/create/CartController';
 
 import { uploadImage } from '../middlewares/uploadToFirebaseStorage';
-import CreateProductController from '../useCase/productServices/create/CreateProductController';
-import ReturnProductController from '../useCase/productServices/return/ReturnProductController';
-import DeleteProductController from '../useCase/productServices/delete/DeleteProductController';
+import CreateProductController from '../useCase/product/create/CreateProductController';
+import ReturnProductController from '../useCase/product/return/ReturnProductController';
+import DeleteProductController from '../useCase/product/delete/DeleteProductController';
 
 import CreateOrdenController from '../useCase/order/create/CreateOrdenController';
 import DeleteOrderController from '../useCase/order/delete/DeleteOrderController';
@@ -44,16 +44,18 @@ router.put('/user-update/:userId',ensureAuthenticated,UpdateUserController.handl
 router.post('/login', UserAtenticationController.userAtentication);
 router.post('/refresh-token', refreshTokenUserController.handle);
 
-router.post('/supplier',CreateSupplierController.createSupplier)
+router.post('/supllier',CreateSupplierController.createSupplier)
 router.get('/supplier/:supllierId',ReturnSupllierController.getSupllier)
 router.put('/supplier',UpdateSupllierController.createSupplier)
+router.delete('/supllier/:suplierId',DeleteSupllierController.deleteSupllier)
+
 router.post('/supllier/login', SupllierAutenticationController.supllierAtentication);
 router.post('/supllier/refresh-token', RefreshTokenSupllierController.handle);
 
-router.post('supllier/product/add',ensureAuthenticated,multer.single("file"),uploadImage,CreateProductController.createProduct);
+router.post('/supllier/product/add',ensureAuthenticated,multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/product',ReturnProductController.findMany)
 router.get('/product/:productId',ReturnProductController.findUnique)
-router.delete('/product/:productId',ensureAuthenticated,DeleteProductController.deleteUnique)
+router.delete('/product/:productId',DeleteProductController.deleteUnique)
 
 router.post('/pedido',ensureAuthenticated,CreateOrdenController.createOrder)
 router.delete('/pedido/:id',ensureAuthenticated,DeleteOrderController.deleteOrder)

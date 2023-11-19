@@ -14,13 +14,13 @@ class DeleteProductServices{
 				id:productId
 			}
 		})
-
+		console.log(product)
 		if(!product){
 			new Error("Produto não existe")
 		}
 		
 		const fileUrl  = product?.imageUrl
-		
+		console.log(fileUrl)
 		if (fileUrl && typeof fileUrl === 'string' && fileUrl.trim() !== ''){
 
 			const filePathAndNameWithQuery = fileUrl.split('/o/')[1];
@@ -41,7 +41,7 @@ class DeleteProductServices{
 				});
 		}
 
-		const deletedProduct = prisma.product.delete({
+		const deletedProduct = await prisma.product.delete({
 			where:{
 				id:productId
 			}
