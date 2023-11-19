@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
-import { prisma } from "../../lib/prisma"
-import { GenerateTokenProvider } from "../../provider/GenerateTokenProvider"
-import { GenerateRefreshToken } from "../../provider/GenerateRefreshToken"
+import { prisma } from "../../../lib/prisma"
+import { GenerateTokenProvider } from "../../../provider/GenerateTokenProvider"
+import { GenerateRefreshToken } from "../../../provider/GenerateRefreshToken"
 
 class RefreshTokenUserServices{
 

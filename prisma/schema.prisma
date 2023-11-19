@@ -35,16 +35,25 @@ model RefreshToken{
 
   @@map("refresh_token")
 }
+model RefreshTokenSupllier{
+  id        String   @id @default(uuid())
+  expiresIn Int
+  supllier  Supplier @relation(fields: [supllierId],references: [id], onDelete: Cascade)
+  supllierId    String   @unique
+
+  @@map("refresh_token_supllier")
+}
 
 model Supplier {
-  id              String      @id
-  nomeDaEmpresa   String
-  contato         String
-  email           String      @unique
-  senha           String 
-  products        Product[]
-  addressId       String
-  address         Address?    @relation("AddressToSupllier",fields: [addressId], references: [id])
+  id                      String      @id @default(uuid())
+  nomeDaEmpresa           String
+  contato                 String
+  email                   String      @unique
+  senha                   String 
+  products                Product[]
+  addressId               String
+  address                 Address?    @relation("AddressToSupllier",fields: [addressId], references: [id])
+  refresh_token_supllier  RefreshTokenSupllier?
 }
 
 model Product {
@@ -95,11 +104,11 @@ model Cart {
 }
 
 model Address{
-  id        String      @id @default(uuid())
+  id        String       @id @default(uuid())
   rua       String 
   cidade    String
   estado    String
-  cep       String     
+  cep       String       @unique 
   order     Order[]      @relation("AddressToOrder")
   supllier  Supplier[]   @relation("AddressToSupllier")
 }

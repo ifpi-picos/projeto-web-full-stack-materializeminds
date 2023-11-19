@@ -6,9 +6,11 @@ import UpdateUserController from '../useCase/useServices/updateUser/UpdateUserCo
 import DeleteUserController from '../useCase/useServices/deleteUser/DeleteUserController';
 import ReturnUserController from '../useCase/useServices/returnUser/ReturnUserController';
 
-import UserAtenticationController from '../useCase/autenticationServices/UserAutenticationController';
+import UserAtenticationController from '../useCase/autenticationServices/autenticationUserServices/UserAutenticationController';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
-import { RefreshTokenUserController } from '../useCase/refreshTokenUser/RefreshTokenUserController';
+import { RefreshTokenUserController } from '../useCase/refreshToken/refreshTokenUser/RefreshTokenUserController';
+import RefreshTokenSupllierController from '../useCase/refreshToken/refreshTokenSupllier/RefreshTokenSupllierController';
+import SupllierAutenticationController from '../useCase/autenticationServices/autenticationSupllierServices/SupllierAutenticationController';
 
 import CreateSupplierController from '../useCase/supllierServices/createSupllier/CreateSupllierController';
 import ReturnSupllierController from '../useCase/supllierServices/returnSupllier/ReturnSupllierController';
@@ -35,7 +37,6 @@ const multer = Multer({
 
 const router = express.Router();
 
-
 router.post('/user', CreateUserController.create);
 router.delete('/user',DeleteUserController.delete);
 router.get('/user/:userId',ensureAuthenticated,ReturnUserController.return)
@@ -46,8 +47,8 @@ router.post('/refresh-token', refreshTokenUserController.handle);
 router.post('/supplier',CreateSupplierController.createSupplier)
 router.get('/supplier/:supllierId',ReturnSupllierController.getSupllier)
 router.put('/supplier',UpdateSupllierController.createSupplier)
-// router.post('/supllier/login',SupllierAutenticationController.supllierAtentication);
-// router.post('/refresh-token', refreshTokenUserController.handle);
+router.post('/supllier/login', SupllierAutenticationController.supllierAtentication);
+router.post('/refresh-token', RefreshTokenSupllierController.handle);
 
 router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/',ReturnProductController.findMany)

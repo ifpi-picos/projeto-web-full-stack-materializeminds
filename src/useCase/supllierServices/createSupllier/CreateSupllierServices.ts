@@ -3,7 +3,6 @@ import {hash  } from 'bcryptjs'
 import { prisma } from "../../../lib/prisma";
 
 interface ISuplierRequest{
-  id:string,
   nomeDaEmpresa: string,
   addressId: string,
   contato: string,
@@ -13,8 +12,9 @@ interface ISuplierRequest{
 
 
 class CreateSupplierService {
-  async createSupplier({id, nomeDaEmpresa,addressId,contato,email,senha}:ISuplierRequest) {
+  async createSupplier({nomeDaEmpresa,addressId,contato,email,senha}:ISuplierRequest) {
     
+  
     const suplierAlreadyExists = await prisma.supplier.findFirst({
       where:{
         email
@@ -29,7 +29,6 @@ class CreateSupplierService {
     
     const supplier = await prisma.supplier.create({
       data:{
-        id,
         nomeDaEmpresa,
         contato,
         email,

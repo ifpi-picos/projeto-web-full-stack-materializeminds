@@ -297,26 +297,11 @@
 						"type":"string",
 						"description":"O nome do Fornecedor"
 					},
-					"endereco":{
+          "endereco":{
 						"type":"object",
-						"properties": {
-              "rua":{
-                "type":"string",
-                "description":""
-              },
-              "cidade":{
-                "type":"string",
-                "description":""
-              },
-              "estado":{
-                "type":"string",
-                "description":""
-              },
-              "cep":{
-                "type":"string",
-                "description":""
-              }
-            }
+						"description":"Dados do endereço",
+            "$ref": "#/components/schemas/endereco"
+            
 					},
 					"contato":{
 						"type":"string",
@@ -325,7 +310,12 @@
 					"email":{
 						"type":"string",
 						"description":"Endereço de email para contato com o fornecedor"
+					},
+          "senha":{
+						"type":"string",
+						"description":"Senha do fornecedor"
 					}
+
         }
       },
       "ProductInput": {
@@ -373,7 +363,6 @@
 					}
         }
       },
-
       "CartInput": {
         "type": "object",
         "properties": {
@@ -390,6 +379,28 @@
       				"format": "uuid",
       				"description": "Indetificador unico do user"
 						}
+        }
+      },
+      "endereco": {
+        "type": "object",
+        "properties": {
+          	"rua":{
+							"type":"string",
+							"description":"O nome da rua"
+						},
+						"cidade":{
+							"type":"string",
+							"description":"Nome da cidade"
+						},
+						"estado":{
+							"type": "string",
+      				"description": "Nome do estado"
+						},
+            "cep":{
+							"type": "string",
+      				"description": "Numero do cep"
+						}
+
         }
       }
     }

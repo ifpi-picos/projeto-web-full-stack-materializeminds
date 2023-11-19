@@ -2,8 +2,10 @@ import { Request,Response,NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
 export function ensureAuthenticated(resquest:Request,response:Response,next:NextFunction){
+	
 	const authToken = resquest.headers.authorization
-
+	const keyToken = process.env.KEY_TOKEN
+	
 	if(!authToken){
 		return response.status(401).json({
 			message:"token is missing"
@@ -13,13 +15,14 @@ export function ensureAuthenticated(resquest:Request,response:Response,next:Next
 	const [ ,token] = authToken.split(" ")
 
 	try{
-		verify(token,"98b2579d-3686-4993-9097-685f0ebb6aaa")
-		return next()
-	}catch(error){
+		if(keyToken){
+			verify(token,keyToken)
+			return next()
+		}
+			
+	}catch(error){	
 		return response.status(401).json({
 			message:"token invalido"
 		})
 	}
-
-
 }

@@ -9,11 +9,21 @@ interface IBodyAddress{
 }
 
 class CreateAddressServices{
-	createAddress({rua,cidade,estado,cep}:IBodyAddress){
+	async createAddress({rua,cidade,estado,cep}:IBodyAddress){
 		
 		// fazer a verificação para garantir unicidade em cada registro
 
-		const address = prisma.address.create({
+		const addressAlreadyExists = await prisma.address.findFirst({
+			where:{
+				cep:cep
+			}
+		})
+
+		if(addressAlreadyExists){
+			return addressAlreadyExists
+		}
+
+		const address = await prisma.address.create({
 			data:{
 				rua,
 				cidade,

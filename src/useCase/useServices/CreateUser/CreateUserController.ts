@@ -11,11 +11,10 @@ class CreateUserController {
     try{
 
       const validador = Validator.validarUsuario({nome, email, senha, telefone})
-      console.log(validador)
+
       if(validador.error){
         console.log(validador.error)
         throw new Error('Campos invalidos')
-        
       }
 
       const user = await createUserServices.createUser({
