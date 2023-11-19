@@ -30,51 +30,65 @@
         }
       }
     },
-    "paths": {
-      "/login": {
-        "post": {
-          "summary": "Rota de Login",
-          "description": "Efetua login e gera tokens de autenticação.",
-          "requestBody": {
-            "required": true,
+    "/login": {
+      "post": {
+        "summary": "Rota de Login",
+        "description": "Efetue login para gerar token de autenticação e criar um refresh token para poder gerar tokens automaticamente sem precisar realizar o login novamente.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "email": {
+                    "Token": {
                       "type": "string"
                     },
-                    "password": {
-                      "type": "string"
+                    "refreshToken": {
+                      "type": "object",
+                      "properties":{
+                        "refreshTokenId":{
+                          "type":"string"
+                        },
+                        "expiresIn":{
+                          "type":"number",
+                          "description":"Esse paramentro é a validade do refresh token, ou seja a quantidade de tempo que ele vai durar."
+                        },
+                        "userId":{
+                          "type":"string"
+                        }
+
+                      }
+                    },
+                    "userId":{
+                      "type":"string"
                     }
                   }
                 }
               }
             }
           },
-          "responses": {
-            "200": {
-              "description": "Login bem-sucedido",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "accessToken": {
-                        "type": "string"
-                      },
-                      "refreshToken": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Falha na autenticação"
-            }
+          "401": {
+            "description": "Falha na autenticação"
           }
         }
       }
@@ -108,21 +122,6 @@
                   "properties": {
                     "newToken": {
                       "type": "string"
-                    },
-                    "refreshToken": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "userId": {
-                          "type": "string"
-                        },
-                        "expiration": {
-                          "type": "number",
-                          "description": "Tempo de expiração do refresh token em segundos"
-                        }
-                      }
                     }
                   }
                 }
@@ -135,6 +134,7 @@
         }
       }
     },
+
     "/suppliers": {
       "post": {
         "summary": "Cria um novo fornecedor.",
@@ -160,7 +160,7 @@
       }
     },
 
-    "/create-product": {
+    "/supllier/product/add": {
       "post": {
         "summary": "Cria um novo produto",
         "operationId": "createProduct",
@@ -169,37 +169,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "nomeDoProduto": {
-                    "type": "string",
-                    "description": "Nome do produto"
-                  },
-                  "descricao": {
-                    "type": "string",
-                    "description": "Descrição do produto"
-                  },
-                  "preco": {
-                    "type": "number",
-                    "description": "Preço do produto"
-                  },
-                  "estoque": {
-                    "type": "integer",
-                    "description": "Quantidade em estoque"
-                  },
-                  "categoria": {
-                    "type": "string",
-                    "description": "Categoria do produto"
-                  },
-                  "supplierId": {
-                    "type": "string",
-                    "description": "ID do fornecedor do produto"
-                  },
-                  "imageProduto": {
-                    "type": "file",
-                    "description": "Imagem do produto (PNG)"
-                  }
-                }
+                "$ref":"#/components/schemas/productInput"
               }
             }
           }
@@ -213,32 +183,22 @@
           }
         }
       }
-    },    
-
-    "/supplier/product/add": {
-      "post": {
-        "summary": "Adiciona um produto a um fornecedor.",
-        "operationId": "addProductToSupplier",
-        "requestBody": {
-          "description": "Dados da adição de produto ao fornecedor.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductSupplierInput"
-              }
-            }
-          }
-        },
+    },
+    
+    "/product": {
+      "get": {
+        "summary": "Obtém todos os produtos",
         "responses": {
-          "201": {
-            "description": "Produto adicionado ao fornecedor com sucesso."
+          "200": {
+            "description": "Sucesso"
           },
-          "400": {
-            "description": "Requisição inválida."
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
       }
     },
+    
 
     "/cart": {
       "post": {
@@ -316,51 +276,6 @@
 					}
         }
       },
-      "ProductInput": {
-        "type": "object",
-        "properties": {
-					"nomeDoProduto":{
-						"type":"string",
-						"description":"O nome do produto"
-					},
-					"descricao":{
-						"type":"string",
-						"description":"Descrição do produto"
-					},
-					"preco":{
-						"type":"float",
-						"description":"Valor do produto"
-					},
-					"estoque":{
-						"type":"int",
-						"description":"Quantidade do produto"
-					},
-					"categoria":{
-						"type":"string",
-						"description":"Tipo da categoria do produto"
-					},
-					"supplierId":{
-						"type": "string",
-      			"format": "uuid",
-      			"description": "Indetificador unico do fornecedor"
-					}
-        }
-      },
-      "ProductSupplierInput": {
-        "type": "object",
-        "properties": {
-					"productId":{
-						"type": "string",
-      			"format": "uuid",
-      			"description": "Indetificador unico do user"
-					},
-					"supplierId":{
-						"type": "string",
-      			"format": "uuid",
-      			"description": "Indetificador unico do fornecedor"
-					}
-        }
-      },
       "CartInput": {
         "type": "object",
         "properties": {
@@ -399,6 +314,39 @@
       				"description": "Numero do cep"
 						}
 
+        }
+      },
+      "productInput":{
+        "type": "object",
+        "properties": {
+          "nomeDoProduto": {
+            "type": "string",
+            "description": "Nome do produto"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição do produto"
+          },
+          "preco": {
+            "type": "number",
+            "description": "Preço do produto"
+          },
+          "estoque": {
+            "type": "integer",
+            "description": "Quantidade de estoque"
+          },
+          "categoria": {
+            "type": "string",
+            "description": "Categoria do produto"
+          },
+          "supplierId": {
+            "type": "string",
+            "description": "ID do fornecedor do produto"
+          },
+          "imageProduto": {
+            "type": "file",
+            "description": "Imagem do produto (PNG)"
+          }
         }
       }
     }

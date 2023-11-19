@@ -50,10 +50,10 @@ router.put('/supplier',UpdateSupllierController.createSupplier)
 router.post('/supllier/login', SupllierAutenticationController.supllierAtentication);
 router.post('/supllier/refresh-token', RefreshTokenSupllierController.handle);
 
-router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
-router.get('/',ReturnProductController.findMany)
+router.post('supllier/product/add',ensureAuthenticated,multer.single("file"),uploadImage,CreateProductController.createProduct);
+router.get('/product',ReturnProductController.findMany)
 router.get('/product/:productId',ReturnProductController.findUnique)
-router.delete('/product/:productId',DeleteProductController.deleteUnique)
+router.delete('/product/:productId',ensureAuthenticated,DeleteProductController.deleteUnique)
 
 router.post('/pedido',ensureAuthenticated,CreateOrdenController.createOrder)
 router.delete('/pedido/:id',ensureAuthenticated,DeleteOrderController.deleteOrder)

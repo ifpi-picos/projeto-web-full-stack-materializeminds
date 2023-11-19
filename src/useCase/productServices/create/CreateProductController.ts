@@ -1,22 +1,27 @@
 import { Request, Response, response } from 'express';
 import ProductService from './CreateProductServices';
+import Validator from '../../../services/Validator'; 
 
 class CreateProductController {
 
   async createProduct(req: Request, res: Response){
     try{
-
+    
       const jsonObject = JSON.parse(req.body.data)
-
       const {nomeDoProduto, descricao, preco, estoque, categoria, supplierId} = jsonObject
 
+      const productValido = Validator.validarProduct({nomeDoProduto, descricao, preco, estoque, categoria, supplierId})
+
+      if(productValido.error){
+        throw new Error("Campos invalidos")
+      }
+
       if(!req.headers.filebaseUrl){
-        res.json({"Erro":"ImageUrl not exits"})
+        throw new Error("ImageUrl not exits")
       }
 
       const imageUrl = req.headers.filebaseUrl as string;
       
-
       const product = await ProductService.createProduct({
         nomeDoProduto,
         descricao,
@@ -31,6 +36,10 @@ class CreateProductController {
 
     }catch(error){
       console.log(error)
+      if(error instanceof Error){
+        res.json(error.message)
+      }
+      
     }
   } 
 }

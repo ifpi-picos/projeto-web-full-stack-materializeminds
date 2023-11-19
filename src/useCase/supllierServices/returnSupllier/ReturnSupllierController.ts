@@ -6,7 +6,7 @@ class ReturnSupllierController{
 		try{
 			const {suplierId} = req.params
 
-			const suplier = ReturnSupllierServices.getSupllier({suplierId})
+			const suplier = await  ReturnSupllierServices.getSupllier({suplierId})
 			
 			res.status(201).json(suplier)
 		}catch(e){

@@ -13,9 +13,6 @@ class GenerateTokenProvider{
 			return token
 		}
 	}
-	
-	
-
 }
 
-export { GenerateTokenProvider }
+export default new GenerateTokenProvider()

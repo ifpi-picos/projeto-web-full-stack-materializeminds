@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import CreateSupplierService from './CreateSupllierServices';
 import CreateAddressServices from '../../address/CreateAddressServices';
-import Validator from '../../../provider/Validator';
+import Validator from '../../../services/Validator';
 import ValidarCep from '../../../services/ValidarCep';
 
 class CreateSupplierController {
@@ -10,10 +10,9 @@ class CreateSupplierController {
     const {nomeDaEmpresa, contato, email, senha,endereco} = req.body;
     const {rua,cidade,estado,cep} =  endereco    
 
-    console.log(contato)
-
     try {
       const validado = await ValidarCep.getAddressInfo({rua,cidade,estado,cep}) 
+      
       if(!validado){
         throw new Error('Endereço invalido')
       }
@@ -33,10 +32,6 @@ class CreateSupplierController {
       
       const address = await CreateAddressServices.createAddress({rua,cidade,estado,cep})
 
-      if(!address.id){
-        throw new Error("Endereço invalido")
-      }
-      
       const addressId = address.id
       
       const supplier = await CreateSupplierService.createSupplier({

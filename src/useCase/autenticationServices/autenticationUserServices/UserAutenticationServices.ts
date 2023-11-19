@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs"
 import { prisma } from "../../../lib/prisma"
-import { GenerateRefreshToken } from "../../../provider/GenerateRefreshToken"
-import { GenerateTokenProvider } from "../../../provider/GenerateTokenProvider"
+import { GenerateRefreshToken } from "../../../services/GenerateRefreshToken"
+import { GenerateTokenProvider } from "../../../services/GenerateTokenProvider"
 
 
 interface IRequest{

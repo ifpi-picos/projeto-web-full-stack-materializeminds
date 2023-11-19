@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import createUserServices from './CreateUserServices';
-import Validator from '../../../provider/Validator';
+import Validator from '../../../services/Validator';
 
 class CreateUserController {
   

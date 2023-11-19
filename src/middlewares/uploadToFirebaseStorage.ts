@@ -5,14 +5,23 @@ import { Request, Response, NextFunction } from "express";
 
 
 export function uploadImage (req: Request, res: Response, next: NextFunction) {
+  
   const bucket = admin.storage().bucket();
   
-
   if (!req.file) {
-    return next();
+    return res.status(400).json("Imagem é obrigatoria") ;
   }
 
   const imagem = req.file;
+
+  if (!["image/png", "image/jpeg"].includes(imagem.mimetype)) {
+    return res.status(400).json("Apenas arquivos PNG ou JPEG são permitidos")
+  }
+
+  const tamanhoMaximo = 30 * 1024 * 1024
+  if (imagem.size > tamanhoMaximo) {
+    return res.status(400).json("O tamanho do arquivo excede o limite de 30 MB")
+  }
 
   const fullNamefile = Date.now() + "." + imagem.originalname.split(".").pop();
 

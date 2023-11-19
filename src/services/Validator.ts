@@ -19,6 +19,16 @@ interface IValidatorParamsEndereco{
   estado:string;
   cep:string;
 }
+interface IValidatorParamsProduct{
+  nomeDoProduto:string;
+  descricao:string;
+  preco:number;
+  estoque:number
+  categoria:string
+  supplierId:string;
+}
+
+
 
 class Validator {
   static validarUsuario(usuario: IValidatorParams) {
@@ -51,6 +61,22 @@ class Validator {
 
     return schema.validate(endereco);
   }
+
+  static validarProduct(endereco: IValidatorParamsProduct) {
+    const schema = Joi.object({
+      nomeDoProduto:Joi.string().min(2).max(30).required(),
+      descricao:Joi.string().max(30).required(),
+      preco:Joi.number().max(100000).required(),
+      estoque:Joi.number().min(1).max(30).required(),
+      categoria:Joi.string().min(4).max(30).required(),
+      supplierId:Joi.string().min(36).max(36).required(),
+
+      })
+
+    return schema.validate(endereco);
+  }
+
+
 
 
 }

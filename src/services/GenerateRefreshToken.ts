@@ -30,4 +30,4 @@ class GenerateRefreshToken{
 	}
 }
 
-export { GenerateRefreshToken }
+export default new GenerateRefreshToken()
