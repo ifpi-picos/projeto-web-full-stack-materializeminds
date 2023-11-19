@@ -36,9 +36,9 @@ model RefreshToken{
   @@map("refresh_token")
 }
 model RefreshTokenSupllier{
-  id        String   @id @default(uuid())
-  expiresIn Int
-  supllier  Supplier @relation(fields: [supllierId],references: [id], onDelete: Cascade)
+  id            String   @id @default(uuid())
+  expiresIn     Int
+  supllier      Supplier @relation(fields: [supllierId],references: [id], onDelete: Cascade)
   supllierId    String   @unique
 
   @@map("refresh_token_supllier")

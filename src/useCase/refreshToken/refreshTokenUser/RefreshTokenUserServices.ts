@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 import { prisma } from "../../../lib/prisma"
-import { GenerateTokenProvider } from "../../../services/GenerateTokenProvider"
-import { GenerateRefreshToken } from "../../../services/GenerateRefreshToken"
+import GenerateTokenProvider from "../../../services/GenerateTokenProvider"
+import GenerateRefreshToken from "../../../services/GenerateRefreshToken"
 
 class RefreshTokenUserServices{
 
@@ -17,8 +17,8 @@ class RefreshTokenUserServices{
 		}
 		
 		const refreshTokenExpired = dayjs.isDayjs(dayjs.unix(refreshToken.expiresIn))
-		const generateTokenProvider = new GenerateTokenProvider()
-		const token = await generateTokenProvider.execute(refreshToken.userId)
+
+		const token = await GenerateTokenProvider.execute(refreshToken.userId)
 		
 		if(!refreshTokenExpired){ // Fazer um melhor entendimento
 			await prisma.refreshToken.deleteMany({
@@ -26,8 +26,7 @@ class RefreshTokenUserServices{
 					userId:refreshToken.userId
 				}
 			})
-			const generateRefreshToken = new GenerateRefreshToken()
-			const newRefreshToken = await generateRefreshToken.execute(refreshToken.userId)
+			const newRefreshToken = await GenerateRefreshToken.execute(refreshToken.userId)
 
 			return { token,newRefreshToken}
 		}

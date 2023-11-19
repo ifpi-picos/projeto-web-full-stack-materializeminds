@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs"
 import { prisma } from "../../../lib/prisma"
-import { GenerateRefreshToken } from "../../../services/GenerateRefreshToken"
-import { GenerateTokenProvider } from "../../../services/GenerateTokenProvider"
+import GenerateRefreshToken from "../../../services/GenerateRefreshToken"
+import GenerateTokenProvider from "../../../services/GenerateTokenProvider"
 
 
 interface IRequest{
@@ -31,8 +31,8 @@ class UserAutenticationServices{
 		}
 
 		const userId = userAlreadyExists.id
-		const generateTokenProvider = new GenerateTokenProvider()
-		const token = await generateTokenProvider.execute(userAlreadyExists.id)
+
+		const token = await GenerateTokenProvider.execute(userAlreadyExists.id)
 		
 		await prisma.refreshToken.deleteMany({
 			where:{
@@ -40,8 +40,7 @@ class UserAutenticationServices{
 			}
 		})
 
-		const generateRefreshToken = new GenerateRefreshToken()
-		const refreshToken = await generateRefreshToken.execute(userAlreadyExists.id)
+		const refreshToken = await GenerateRefreshToken.execute(userAlreadyExists.id)
 		
 		return {token,refreshToken,userId}
 	}
