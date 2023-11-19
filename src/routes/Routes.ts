@@ -48,7 +48,7 @@ router.post('/supplier',CreateSupplierController.createSupplier)
 router.get('/supplier/:supllierId',ReturnSupllierController.getSupllier)
 router.put('/supplier',UpdateSupllierController.createSupplier)
 router.post('/supllier/login', SupllierAutenticationController.supllierAtentication);
-router.post('/refresh-token', RefreshTokenSupllierController.handle);
+router.post('/supllier/refresh-token', RefreshTokenSupllierController.handle);
 
 router.post('/product',multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/',ReturnProductController.findMany)

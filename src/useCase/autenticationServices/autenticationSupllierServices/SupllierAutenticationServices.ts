@@ -20,17 +20,16 @@ class SupllierAutenticationServices{
 		})
 
 		if(!supllierAlreadyExists){
-			throw new Error(" User or password incorrect!")
-
+			throw new Error("User or password incorrect!")
 		}
 		
 		const passwordMatch = await compare(senha,supllierAlreadyExists.senha)
 
 		if(!passwordMatch){
-			throw  new Error(" User or password incorrect!")
+			throw  new Error("User or password incorrect!")
 		}
 
-		const userId = supllierAlreadyExists.id
+		const supllierId = supllierAlreadyExists.id
 		const generateTokenProvider = new GenerateTokenProvider()
 		const token = await generateTokenProvider.execute(supllierAlreadyExists.id)
 		
@@ -43,7 +42,7 @@ class SupllierAutenticationServices{
 		const generateRefreshToken = new GenerateRefreshToken()
 		const refreshToken = await generateRefreshToken.refreshTokenSupllier(supllierAlreadyExists.id)
 		
-		return {token,refreshToken,userId}
+		return {token,refreshToken,supllierId}
 	}
 	
 }

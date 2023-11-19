@@ -297,12 +297,6 @@
 						"type":"string",
 						"description":"O nome do Fornecedor"
 					},
-          "endereco":{
-						"type":"object",
-						"description":"Dados do endereço",
-            "$ref": "#/components/schemas/endereco"
-            
-					},
 					"contato":{
 						"type":"string",
 						"description":"Numero de telefone do fornecedor"
@@ -314,8 +308,12 @@
           "senha":{
 						"type":"string",
 						"description":"Senha do fornecedor"
+					},
+          "endereco":{
+						"type":"object",
+						"description":"Dados do endereço",
+            "$ref": "#/components/schemas/endereco"
 					}
-
         }
       },
       "ProductInput": {
