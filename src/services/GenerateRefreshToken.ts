@@ -20,7 +20,7 @@ class GenerateRefreshToken{
 		const expiresIn = dayjs().add(7,"days").unix(); 
 
 		const generateRefreshToken = await prisma.refreshTokenSupllier.create({
-			data:{
+			data:{																	
 				supllierId,
 				expiresIn			
 			}
