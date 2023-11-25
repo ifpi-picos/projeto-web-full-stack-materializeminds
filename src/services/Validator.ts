@@ -6,6 +6,7 @@ interface IValidatorParams {
   senha: string;
   telefone: string;
 }
+
 interface IValidatorParamsSupllier{
   nomeDaEmpresa: string;
   email: string;
@@ -34,7 +35,7 @@ class Validator {
   static validarUsuario(usuario: IValidatorParams) {
     const schema = Joi.object({
       nome: Joi.string().min(2).max(25).required(),
-      email: Joi.string().email().required().pattern(/@email\.com$/),
+      email: Joi.string().email().required().pattern(/@gmail\.com$/),
 			senha: Joi.string().min(6).max(25).required(),
 			telefone: Joi.string().pattern(/^\d{11}$/).required(),
     });

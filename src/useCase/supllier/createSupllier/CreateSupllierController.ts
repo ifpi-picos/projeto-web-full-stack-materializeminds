@@ -11,13 +11,14 @@ class CreateSupplierController {
     const {rua,cidade,estado,cep} =  endereco    
 
     try {
-      const validado = await ValidarCep.getAddressInfo({rua,cidade,estado,cep}) 
       
-      if(!validado){
+      const cepvalidado:any = await ValidarCep.getAddressInfo({rua,cidade,estado,cep}) 
+
+      if(cepvalidado.code ==='ERR_BAD_REQUEST'){
         throw new Error('Endereço invalido')
       }
 
-      const validador = Validator.validarSupllier
+      const dataSupllierValidad = Validator.validarSupllier
       ({
         nomeDaEmpresa,
         email,
@@ -25,10 +26,13 @@ class CreateSupplierController {
         contato,
       })
 
-      if(validador.error){
-        console.log(validador.error)
+      
+      if(dataSupllierValidad.error){
+        console.log(dataSupllierValidad.error)
         throw new Error('Campos invalidos')
+ 
       }
+      
       
       const address = await CreateAddressServices.createAddress({rua,cidade,estado,cep})
 
@@ -45,7 +49,11 @@ class CreateSupplierController {
     
     } catch (error) {
       if(error instanceof Error){
-        res.status(400).json(error.message)
+
+        console.log('sf')
+        console.log(error.name)
+        
+        return res.status(400).json({message: error.message});
       }
       res.status(500).json({ error: 'Erro ao criar o fornecedor' });
     }

@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import listProductServices from "./ListProductServices"
-
+import calcularFreteCorreios from "../../../services/freight"
 
 class ReturnProductController{
 	
@@ -8,6 +8,7 @@ class ReturnProductController{
 		
 		try{
 			const products = await listProductServices.listProducts()
+			calcularFreteCorreios
 			return res.status(200).json(products)
 
 		}catch(error){

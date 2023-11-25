@@ -20,7 +20,7 @@ class CreateUserServices {
     })
 
     if(userAlreadyExits){  
-      throw new Error('User already exists');
+      throw new Error('Usuário já existe');
     }
 
     const passwordHash = await hash(senha,8)

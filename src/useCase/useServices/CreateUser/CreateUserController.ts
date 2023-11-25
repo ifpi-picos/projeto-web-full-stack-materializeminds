@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import createUserServices from './CreateUserServices';
 import Validator from '../../../services/Validator';
+import { errorHandling } from '../../../services/errorHandling'; 
+import { error } from 'console';
 
 class CreateUserController {
   
@@ -13,8 +15,7 @@ class CreateUserController {
       const validador = Validator.validarUsuario({nome, email, senha, telefone})
 
       if(validador.error){
-        console.log(validador.error)
-        throw new Error('Campos invalidos')
+        throw new Error(validador.error.details[0].message)
       }
 
       const user = await createUserServices.createUser({
@@ -23,15 +24,18 @@ class CreateUserController {
         senha,
         telefone,
       });
-      return res.json(user);
+
+      return res.status(200).json(user);
 
     } catch(error:any){
-      console.log(error)
 
       if (error instanceof Error) {
-        res.status(400).json({statusText: error.message });
+        
+        const handledError = await errorHandling(error);
+        res.status(400).json({message: handledError});
       } else {
-        res.status(500).json({ erro: 'Erro interno do servidor' });
+        console.log(error)
+        res.status(500).json({message: 'Erro interno do servidor' });
       }
     }
   }
