@@ -38,4 +38,5 @@ class CreateUserServices {
   }
 }
 
+
 export default new CreateUserServices()
