@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma"
-
+import ValidarCep from "../../services/ValidarCep"
 
 interface IBodyAddress{     
 	rua: string 
@@ -11,7 +11,11 @@ interface IBodyAddress{
 class CreateAddressServices{
 	async createAddress({rua,cidade,estado,cep}:IBodyAddress){
 		
-		// fazer a verificação para garantir unicidade em cada registro
+		const addressValidator = await ValidarCep.getAddressInfo({rua,cidade,estado,cep})
+		
+		if(!addressValidator){
+			throw new Error('Endereço Invalido')
+		}
 
 		const addressAlreadyExists = await prisma.address.findFirst({
 			where:{

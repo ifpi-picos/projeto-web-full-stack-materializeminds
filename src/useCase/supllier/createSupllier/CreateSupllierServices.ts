@@ -22,7 +22,7 @@ class CreateSupplierService {
     })
     
     if(suplierAlreadyExists){ 
-      new Error("Suplier already exists")
+      throw new Error("Fornecedor já cadastrado")
     }
     
     const passwordHash = await hash(senha,8)

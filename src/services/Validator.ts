@@ -45,7 +45,7 @@ class Validator {
 	static validarSupllier(supplier: IValidatorParamsSupllier) {
     const schema = Joi.object({
       nomeDaEmpresa: Joi.string().min(2).max(30).required(),
-      email: Joi.string().email().max(100).required(),
+      email: Joi.string().email().max(50).required().pattern(/@gmail\.com$/),
 			senha: Joi.string().min(6).max(50).required(),
 			contato: Joi.string().pattern(/^\d{11}$/).required(),
     });

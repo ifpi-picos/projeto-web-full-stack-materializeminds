@@ -29,10 +29,8 @@ class CreateSupplierController {
       
       if(dataSupllierValidad.error){
         console.log(dataSupllierValidad.error)
-        throw new Error('Campos invalidos')
- 
+        throw new Error('O campo '+dataSupllierValidad.error.details[0].context?.label+' é invalido')
       }
-      
       
       const address = await CreateAddressServices.createAddress({rua,cidade,estado,cep})
 
@@ -48,11 +46,7 @@ class CreateSupplierController {
       res.status(201).json(supplier);
     
     } catch (error) {
-      if(error instanceof Error){
-
-        console.log('sf')
-        console.log(error.name)
-        
+      if(error instanceof Error){        
         return res.status(400).json({message: error.message});
       }
       res.status(500).json({ error: 'Erro ao criar o fornecedor' });

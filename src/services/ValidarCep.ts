@@ -12,7 +12,8 @@ class ValidarCep{
 		try{		
 			const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
     	const endereco = response.data
-			console.log(endereco)
+			
+			
 			if(endereco){
 				let {bairro,localidade,uf} = endereco
 				
@@ -26,7 +27,6 @@ class ValidarCep{
 				estado = estado.toLowerCase()
 				//
 				if(rua===bairro && cidade===localidade && estado===uf){
-					console.log('444')	
 					return true
 				}
 				return false
