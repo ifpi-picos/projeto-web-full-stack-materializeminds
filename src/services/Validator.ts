@@ -68,7 +68,7 @@ class Validator {
       nomeDoProduto:Joi.string().min(2).max(30).required(),
       descricao:Joi.string().max(30).required(),
       preco:Joi.number().max(100000).required(),
-      estoque:Joi.number().min(1).max(30).required(),
+      estoque:Joi.number().min(1).max(50000).required(),
       categoria:Joi.string().min(4).max(30).required(),
       supplierId:Joi.string().min(36).max(36).required(),
 

@@ -52,7 +52,7 @@ router.delete('/supllier/:suplierId',DeleteSupllierController.deleteSupllier)
 router.post('/supllier/login', SupllierAutenticationController.supllierAtentication);
 router.post('/supllier/refresh-token', RefreshTokenSupllierController.handle);
 
-router.post('/supllier/product/add',ensureAuthenticated,multer.single("file"),uploadImage,CreateProductController.createProduct);
+router.post('/supllier/product/add',multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/product',ReturnProductController.findMany)
 router.get('/product/:productId',ReturnProductController.findUnique)
 router.delete('/product/:productId',DeleteProductController.deleteUnique)
