@@ -1,3 +1,4 @@
+import { error } from "console";
 import { prisma } from "../../../lib/prisma";
 
 
@@ -5,11 +6,10 @@ interface IRequest {
 	status: string,
 	total: number,
 	userId:string,
-	productId:string,
 }
 
 class CreateCartServices {
-  async createCartProduct({status, total, userId,productId}:IRequest) {
+  async createCartProduct({status, total, userId}:IRequest) {
 	
 		const userAlreadyExists = await prisma.user.findUnique({
 			where:{
@@ -17,6 +17,10 @@ class CreateCartServices {
 			},
 			include:{cart:true}
 		})
+
+		if(!userAlreadyExists){
+			throw new Error('Usuário não existe')
+		}
 		
 		if(userAlreadyExists?.cart){
 			return userAlreadyExists.cart
@@ -27,7 +31,6 @@ class CreateCartServices {
 				status,
 				total: 0.0,
 				userId: userId,
-				productId
 			},
 		});
 
@@ -39,13 +42,7 @@ class CreateCartServices {
 				},
 			},
 		});
-		
 		return newCart;
-	}
-	
-	async list(){
-	const cart = await prisma.cart.findMany()
-		return cart
 	}
 
 }

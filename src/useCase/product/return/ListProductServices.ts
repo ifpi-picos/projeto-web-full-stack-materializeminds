@@ -21,6 +21,7 @@ class ListProductServices{
 				id:productId
 			}
 		})
+		return product
 	}
 
 	async listCategoryProducts(){

@@ -98,7 +98,6 @@ model Cart {
   status    String
   total     Float
   userId    String      @unique
-  productId String
   user      User        @relation(fields: [userId], references: [id],onDelete: Cascade)
   products  Product[]   @relation("CartProduct")
 }
