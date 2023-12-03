@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx prisma generate && tsc",
     "start": "npm run build && node ./build/server.js",
     "dev": "tsx watch src/server.ts",
     "lint": "eslint src --ext .ts --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "Samuel",
   "license": "ISC",
   "engines": {
     "node": ">=20.9.0 <21.1.0"
