@@ -44,7 +44,6 @@ class CreateCartServices {
 		});
 		return newCart;
 	}
-
 }
 
 export default new CreateCartServices()
