@@ -31,9 +31,18 @@ class ReturnProductController{
 
 	async findCategoryProducts(req:Request, res:Response){
 		
+		const {categoria} = req.params
+		
+		try{
+			const products = await listProductServices.listCategoryProducts({categoria})
+			return res.status(200).json(products)
+
+		}catch(error){
+			
+			console.log(error)
+			res.status(400).json({error:"Não foi possivel retorna os produtos."})
+		}
 	}
-
-
 }
 
 export default new ReturnProductController()

@@ -5,6 +5,10 @@ interface IParamsProduct{
 	productId:string
 }
 
+interface IParamsProductCategory{
+	categoria:string
+}
+
 class ListProductServices{
 	
 	async listProducts(){
@@ -24,10 +28,13 @@ class ListProductServices{
 		return product
 	}
 
-	async listCategoryProducts(){
-		// A fazer
-
-
+	async listCategoryProducts({categoria}:IParamsProductCategory){
+		const product = await prisma.product.findMany({
+			where:{
+				categoria:categoria
+			}
+		})
+		return product
 	}
 
 }

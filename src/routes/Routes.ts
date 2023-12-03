@@ -58,6 +58,7 @@ router.post('/supllier/refresh-token', RefreshTokenSupllierController.handle);
 router.post('/supllier/product/add',multer.single("file"),uploadImage,CreateProductController.createProduct);
 router.get('/product',ReturnProductController.findMany)
 router.get('/product/:productId',ReturnProductController.findUnique)
+router.get('/products/filter/:categoria',ReturnProductController.findCategoryProducts)
 router.delete('/product/:productId',DeleteProductController.deleteUnique)
 
 router.post('/pedido',ensureAuthenticated,CreateOrdenController.createOrder)
