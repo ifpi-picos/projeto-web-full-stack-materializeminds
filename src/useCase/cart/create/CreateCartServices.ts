@@ -29,7 +29,7 @@ class CreateCartServices {
 		const newCart = await prisma.cart.create({
 			data: {
 				status,
-				total: 0.0,
+				total: 0,
 				userId: userId,
 			},
 		});
