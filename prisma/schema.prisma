@@ -64,10 +64,12 @@ model Product {
   estoque       Int
   categoria     String
   supplierId    String
+  imageUrl      String
+
   supplier      Supplier     @relation(fields: [supplierId], references: [id],onDelete: Cascade)
   orderItems    OrderItem[]
   carts         Cart[]       @relation("CartProduct")
-  imageUrl      String
+  cartItems     CartItem[]
 }
 
 model Order {
@@ -77,6 +79,7 @@ model Order {
   total             Float
   addressId         String
   userId            String
+
   user              User         @relation(fields: [userId], references: [id],onDelete: Cascade)
   orderItems        OrderItem[]
   address           Address      @relation("AddressToOrder",fields: [addressId],references: [id],onDelete: Cascade)
@@ -89,8 +92,10 @@ model OrderItem {
   total         Float
   orderId       String
   productId     String
+
   order         Order   @relation(fields: [orderId], references: [id])
   product       Product @relation(fields: [productId], references: [id])
+
 }
 
 model Cart {
@@ -98,9 +103,13 @@ model Cart {
   status    String
   total     Float
   userId    String      @unique
+  
+
   user      User        @relation(fields: [userId], references: [id],onDelete: Cascade)
   products  Product[]   @relation("CartProduct")
+  cartItems CartItem[]  
 }
+
 
 model Address{
   id        String       @id @default(uuid())
@@ -108,6 +117,18 @@ model Address{
   cidade    String
   estado    String
   cep       String       @unique 
+
   order     Order[]      @relation("AddressToOrder")
   supllier  Supplier[]   @relation("AddressToSupllier")
+}
+
+model CartItem {
+  id           String   @id @default(uuid())
+  quantity     Int
+  cartId       String
+  productId    String
+  createdAt    DateTime @default(now())
+
+  cart         Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product      Product  @relation(fields: [productId], references: [id])
 }

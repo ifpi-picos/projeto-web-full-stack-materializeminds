@@ -18,9 +18,12 @@ import UpdateSupllierController from '../useCase/supllier/updateSupllier/UpdateS
 import DeleteSupllierController from '../useCase/supllier/deleteSupllier/DeleteSupllierController';
 
 import CreateCartController from '../useCase/cart/create/CreateCartController';
-import AddProductCartController from '../useCase/cart/add/AddProductCartController';
 import returnCartController from '../useCase/cart/return/returnCartController';
+import DeleteCartController from '../useCase/cart/delete/DeleteCartController';
 
+import CreateCartItemController from '../useCase/cartItem/create/CreateCartItemController';
+import DeleteCartItemController from '../useCase/cartItem/delete/DeleteCartItemController';
+import UpdateCartItemController from '../useCase/cartItem/update/UpdateCartItemController';
 
 import { uploadImage } from '../middlewares/uploadToFirebaseStorage';
 import CreateProductController from '../useCase/product/create/CreateProductController';
@@ -67,7 +70,10 @@ router.delete('/pedido/:id',ensureAuthenticated,DeleteOrderController.deleteOrde
 
 router.post('/cart',CreateCartController.createCart) 
 router.get('/cart/:userId',returnCartController.getCart)
-router.put('/add/product/cart',AddProductCartController.addProductCart)
+router.delete('/cart/:cartId',DeleteCartController.deleteCart)
 
+router.post('/add/cartItem/cart',CreateCartItemController.createCartItem)
+router.delete('/cartItem/:cartItem',DeleteCartItemController.deleteCart)
+router.put('/cartItem/:cartId',UpdateCartItemController.updateCartItem)
 
 export default router
