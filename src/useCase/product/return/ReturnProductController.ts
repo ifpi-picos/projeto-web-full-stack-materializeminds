@@ -43,6 +43,20 @@ class ReturnProductController{
 			res.status(400).json({error:"Não foi possivel retorna os produtos."})
 		}
 	}
+
+	async searchProducts(req:Request, res:Response){
+		const {searchTerm} = req.params
+		
+		try{
+			const products = await listProductServices.searchProductsServices(searchTerm)
+
+			res.status(201).json(products)
+
+		}catch(error){
+			console.log(error)
+			res.status(400).json({error:"Não foi possivel retorna os produtos."})
+		}
+	}
 }
 
 export default new ReturnProductController()

@@ -9,6 +9,7 @@ interface IParamsProductCategory{
 	categoria:string
 }
 
+
 class ListProductServices{
 	
 	async listProducts(){
@@ -37,6 +38,17 @@ class ListProductServices{
 		return product
 	}
 
+	async searchProductsServices(searchTerm:string){
+		
+	  const products = await prisma.$queryRaw`
+      SELECT * FROM "Product"
+      WHERE "nomeDoProduto" ILIKE ${'%'+searchTerm+'%'}
+    `;	
+
+		console.log(products)
+
+		return products
+	} 
 }
 
 export default new ListProductServices()
