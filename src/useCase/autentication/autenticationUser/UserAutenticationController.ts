@@ -1,6 +1,7 @@
 import { Request,Response } from "express";
-import userAutenticationServices from "./UserAutenticationServices";
 
+import userAutenticationServices from "./UserAutenticationServices";
+import returnCartServices from "../../cart/return/returnCartServices";
 
 class UserAutenticationServices {
 
@@ -13,7 +14,11 @@ class UserAutenticationServices {
 				senha
 			})
 	
-			return res.json(token)
+			const userId = token.userId
+
+			const cart = await returnCartServices.getCard({userId})
+
+			return res.json({token,cart})
 
 		}catch(error){
 			console.log(error)

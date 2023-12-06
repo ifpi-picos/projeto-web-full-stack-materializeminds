@@ -19,6 +19,6 @@ class DeleteCartItemController{
 			console.log(error)
 		}
 	}
-}
+}	
 
 export default new DeleteCartItemController()

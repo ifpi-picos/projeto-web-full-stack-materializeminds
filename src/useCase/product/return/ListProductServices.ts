@@ -45,8 +45,6 @@ class ListProductServices{
       WHERE "nomeDoProduto" ILIKE ${'%'+searchTerm+'%'}
     `;	
 
-		console.log(products)
-
 		return products
 	} 
 }
