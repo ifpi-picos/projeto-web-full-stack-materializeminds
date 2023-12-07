@@ -19,14 +19,15 @@ class CreateCartItemController{
 
 			const updatedCart = await UpdateCartServices.UpdateCartServices({cartId})
 
-			console.log(updatedCart)
-			
-
 			res.status(201).json(updatedCart)
 
-
 		}catch(error){
+			if(error instanceof Error){
+				res.status(400).json(error)
+			}
+			
 			console.log(error)
+			res.status(500).json('Erro Interno do Servidor, tente mais tarde !')
 		}
 	}
 }

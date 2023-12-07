@@ -39,8 +39,12 @@ class UpdateCartServices{
 			data: {
 				total: newTotal,
 			},
+			include:{
+				cartItems:true
+			}
 		});
 		
+		console.log(updatedCart)
 		return updatedCart;
 	}
 }
