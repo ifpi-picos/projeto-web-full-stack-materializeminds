@@ -10,13 +10,7 @@ class CartController{
 		try{
 			const {userId} = req.body
 			
-			const status = 'ativo'
-			
-			const cart = await createCartServices.createCartProduct({
-				status,
-				total:0,
-				userId,
-			})
+			const cart = await createCartServices.createCartProduct({userId})
 
 		res.status(201).json(cart)				
 
