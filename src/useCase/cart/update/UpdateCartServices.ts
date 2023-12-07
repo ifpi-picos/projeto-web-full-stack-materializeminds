@@ -1,5 +1,5 @@
 import { prisma } from "../../../lib/prisma"
-
+import returnCartServices from "../return/returnCartServices";
 
 interface IUpdateCart{
 	cartId:string
@@ -40,11 +40,16 @@ class UpdateCartServices{
 				total: newTotal,
 			},
 			include:{
-				cartItems:true
+				cartItems:{
+					include: {
+						product: true
+					}
+				}
 			}
 		});
 		
 		console.log(updatedCart)
+			
 		return updatedCart;
 	}
 }
