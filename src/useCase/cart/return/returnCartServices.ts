@@ -8,20 +8,21 @@ interface ICardRequest{
 
 class ReturnCartServices {
 	async getCard({userId}:ICardRequest){
-	
-		const cart = await prisma.cart.findMany({
-			where:{
-				userId:userId
+
+		const cart = await prisma.cart.findFirst({
+			where: {
+				userId: userId
 			},
-			include:{
-				cartItems:{
-					include:{
-						product:true
+			include: {
+				cartItems: {
+					include: {
+						product: true
 					}
 				}
 			}
-		})
-		return cart
+		});
+		
+		return cart;
 	}
 }
 

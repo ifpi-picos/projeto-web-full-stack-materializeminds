@@ -68,7 +68,6 @@ router.get('/searchProduct/:searchTerm',ReturnProductController.searchProducts)
 router.post('/pedido',ensureAuthenticated,CreateOrdenController.createOrder)
 router.delete('/pedido/:id',ensureAuthenticated,DeleteOrderController.deleteOrder)
 
-
 router.post('/cart',CreateCartController.createCart) 
 router.get('/cart/:userId',returnCartController.getCart)
 router.delete('/cart/:cartId',DeleteCartController.deleteCart)
