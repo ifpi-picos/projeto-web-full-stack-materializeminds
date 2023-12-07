@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import createUserServices from './CreateUserServices';
 import Validator from '../../../services/Validator';
+
+import createUserServices from './CreateUserServices';
+import CreateCartServices from '../../cart/create/CreateCartServices';
 
 class CreateUserController {
   
@@ -23,7 +25,10 @@ class CreateUserController {
         telefone,
       });
 
-      return res.status(200).json(user);
+      const userId = user.id
+      const cart = CreateCartServices.createCartProduct({userId})
+
+      return res.status(200).json({user,cart});
 
     } catch(error:any){
 

@@ -3,13 +3,11 @@ import { prisma } from "../../../lib/prisma";
 
 
 interface IRequest {
-	status: string,
-	total: number,
 	userId:string,
 }
 
 class CreateCartServices {
-  async createCartProduct({status, total, userId}:IRequest) {
+  async createCartProduct({userId}:IRequest) {
 	
 		const userAlreadyExists = await prisma.user.findUnique({
 			where:{
@@ -28,7 +26,7 @@ class CreateCartServices {
 
 		const newCart = await prisma.cart.create({
 			data: {
-				status,
+				status:'ativo',
 				total: 0,
 				userId: userId,
 			},
