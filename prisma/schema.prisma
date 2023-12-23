@@ -131,5 +131,5 @@ model CartItem {
   createdAt    DateTime @default(now())
 
   cart         Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  product      Product  @relation(fields: [productId], references: [id])
+  product      Product  @relation(fields: [productId], references: [id],onDelete: Cascade)
 }

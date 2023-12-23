@@ -11,9 +11,9 @@ class DeleteProductController{
 		try{
 			const deletedProduct = await DeleteProductServices.deleteUniqueProduct({productId})
 
-			const menssage = `O produto ${(deletedProduct).nomeDoProduto} foi deletado`
+			// const menssage = `O produto ${(deletedProduct).nomeDoProduto} foi deletado`
 			
-			res.status(200).json(menssage)
+			res.status(200)//.json(menssage)
 
 		}catch(error){
 			console.log(error)

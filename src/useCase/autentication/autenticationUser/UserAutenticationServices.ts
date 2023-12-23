@@ -37,7 +37,7 @@ class UserAutenticationServices{
 		await prisma.refreshToken.deleteMany({
 			where:{
 				userId:userAlreadyExists.id
-			}
+			}	
 		})
 
 		const refreshToken = await GenerateRefreshToken.execute(userAlreadyExists.id)
